@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<h1>DEX Aggregator</h1>
+<div class="container mx-auto">
+	<!-- ... -->
+</div>
