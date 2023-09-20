@@ -4,7 +4,21 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
+		
 		%sveltekit.head%
+
+		<script>
+			if (
+			  (localStorage.getItem('theme') && localStorage.theme.toLocaleLowerCase() === 'dark') ||
+			  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			) {
+				localStorage.setItem('theme', 'dark');
+			  document.documentElement.setAttribute('data-theme', 'dark');
+			} else {
+				localStorage.setItem('theme', 'light');
+			  document.documentElement.setAttribute('data-theme', 'light');
+			}
+		  </script>
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>

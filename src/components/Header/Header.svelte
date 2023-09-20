@@ -1,14 +1,18 @@
 <script lang="ts">
   import ConnectButton from '../ConnectButton';
+  import ThemeButton from './ThemeButton.svelte';
 </script>
 
-<div class="Header">
+<header>
   <h1>DEX Aggregator</h1>
-  <ConnectButton />
-</div>
+  <div class="flex items-center space-x-4">
+    <ConnectButton />
+    <ThemeButton />
+  </div>
+</header>
 
-<style>
-  .Header {
-    @apply flex justify-between items-center p-4;
+<style lang="postcss">
+  header {
+    @apply flex justify-between items-center py-4;
   }
 </style>

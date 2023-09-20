@@ -42,6 +42,7 @@
     "@wagmi/core": "^1.4.2",
     "@web3modal/ethereum": "^2.7.1",
     "@web3modal/html": "^2.7.1",
+    "svelte-icons": "^2.1.0",
     "viem": "^1.10.14"
   }
 }
