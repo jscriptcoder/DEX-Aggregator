@@ -1,7 +1,7 @@
 # DEX Aggregator (work in progress)
 
 <p align="center">
-  <img src="resources/decentralized-exchange.png" alt="Decentralized Exchanges">
+  <img width="300" src="resources/decentralized-exchange.png" alt="Decentralized Exchanges">
 </p>
 
 This app aggregates liquidity across the greater DEX ecosystem and surfaces the best price to the user using the [0x](https://0x.org/docs) swap API. Work is still ongoing.
