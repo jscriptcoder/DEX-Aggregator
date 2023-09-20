@@ -1,5 +1,9 @@
 # DEX Aggregator (work in progress)
 
+This app aggregates liquidity across the greater DEX ecosystem and surfaces the best price to the user using the [0x](https://0x.org/docs) swap API.
+
+Latest deployment: https://simple-dex-aggregator.vercel.app
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
