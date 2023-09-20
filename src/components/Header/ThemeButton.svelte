@@ -2,8 +2,7 @@
   import FaSun from 'svelte-icons/fa/FaSun.svelte';
   import FaMoon from 'svelte-icons/fa/FaMoon.svelte';
   import { onMount } from 'svelte';
-
-  type Theme = 'dark' | 'light';
+  import { web3modal } from '../../libs/web3/walletConnect';
 
   let theme: Theme = 'dark';
 
@@ -14,6 +13,8 @@
 
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
+
+    web3modal.setTheme({ themeMode: theme });
   }
 
   onMount(() => {
@@ -26,10 +27,12 @@
   });
 </script>
 
-<button class="w-8" on:click={toggleTheme}>
-  {#if isDarkTheme}
-    <FaSun />
-  {:else}
-    <FaMoon />
-  {/if}
+<button class="btn btn-sm" on:click={toggleTheme}>
+  <div class="h-4 w-4">
+    {#if isDarkTheme}
+      <FaSun />
+    {:else}
+      <FaMoon />
+    {/if}
+  </div>
 </button>
