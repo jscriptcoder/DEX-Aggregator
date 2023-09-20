@@ -1,6 +1,6 @@
 # DEX Aggregator (work in progress)
 
-This app aggregates liquidity across the greater DEX ecosystem and surfaces the best price to the user using the [0x](https://0x.org/docs) swap API.
+This app aggregates liquidity across the greater DEX ecosystem and surfaces the best price to the user using the [0x](https://0x.org/docs) swap API. Work is still ongoing.
 
 Latest deployment: https://simple-dex-aggregator.vercel.app
 
