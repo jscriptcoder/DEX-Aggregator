@@ -17,6 +17,6 @@
   }
 
   main {
-    @apply h-full flex flex-col justify-center items-center;
+    @apply flex justify-center;
   }
 </style>
