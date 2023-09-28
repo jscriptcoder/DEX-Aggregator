@@ -1,9 +1,15 @@
+<script lang="ts" context="module">
+  export type OnTokenSelect = (token: Token) => void;
+</script>
+
 <script lang="ts">
   import { onMount } from 'svelte';
   import FaSearch from 'svelte-icons/fa/FaSearch.svelte';
   import fetchTokens from '../../libs/token/fetch';
   import type { Token } from '../../libs/token/types';
   import Loading from '../Loading';
+
+  export let onSelect: OnTokenSelect;
 
   let modalOpen = false;
   let fetching = false;
@@ -46,7 +52,9 @@
         <button on:click={closeModal}>✕</button>
       </div>
 
-      <Loading />
+      <div class="token-list">
+        <Loading text="Loading tokens…" />
+      </div>
     </div>
   </dialog>
 </div>
@@ -64,5 +72,9 @@
       outline-none 
       font-medium
       w-full;
+  }
+
+  .token-list {
+    @apply flex justify-center;
   }
 </style>

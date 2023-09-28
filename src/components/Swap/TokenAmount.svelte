@@ -1,12 +1,16 @@
 <script lang="ts">
-  import TokenSelector from './TokenSelector.svelte';
   import type { Token } from '../../libs/token/types';
+  import TokenSelector from './TokenSelector.svelte';
 
   export let token: Token;
+
+  function onTokenSelect(_token: Token) {
+    token = _token;
+  }
 </script>
 
 <div class="TokenAmount">
-  <TokenSelector />
+  <TokenSelector onSelect={onTokenSelect} />
   <input type="number" placeholder="0.0" min="0" step="0.1" />
 </div>
 
@@ -21,7 +25,7 @@
       hover:shadow-[0_0_0_2px_#6419e6]
       w-full
       gap-4
-      p-10;
+      p-8;
   }
 
   input {

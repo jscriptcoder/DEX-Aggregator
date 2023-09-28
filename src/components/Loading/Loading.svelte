@@ -1,6 +1,16 @@
-<span class="loader" />
+<script lang="ts">
+  export let text: string = '';
+</script>
 
-<style>
+<div class="Loading">
+  <span>{text}</span>
+  <span class="loader" />
+</div>
+
+<style lang="postcss">
+  .Loading {
+    @apply flex flex-col gap-2 items-center;
+  }
   .loader {
     width: 48px;
     height: 48px;

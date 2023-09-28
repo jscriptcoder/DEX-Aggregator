@@ -8,7 +8,7 @@
   let estimatedGas: bigint;
 </script>
 
-<div class="card">
+<div class="Swap card">
   <div class="card-body">
     <h2 class="card-title">Swap</h2>
     <p>Trade tokens in an instant</p>
@@ -30,7 +30,7 @@
 </div>
 
 <style lang="postcss">
-  .card {
+  .Swap {
     @apply w-full shadow-xl md:w-[600px] dark:bg-black;
   }
 </style>
