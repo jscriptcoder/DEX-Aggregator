@@ -8,3 +8,7 @@ export type Token = {
   decimals: number,
   logoURI: string
 }
+
+export type FetchResponseData = {
+  tokens: Token[]
+}

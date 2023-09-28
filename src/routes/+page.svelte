@@ -1,6 +1,5 @@
 <script lang="ts">
   import '../app.css';
-  import SvelteQuery from '../components/SvelteQuery';
   import Header from '../components/Header';
   import Swap from '../components/Swap';
 </script>
@@ -8,9 +7,7 @@
 <div class="container">
   <Header />
   <main>
-    <SvelteQuery>
-      <Swap />
-    </SvelteQuery>
+    <Swap />
   </main>
 </div>
 
