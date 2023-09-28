@@ -11,7 +11,7 @@
 </script>
 
 <div class="TokenSelector">
-  <button class="btn" on:click={openModal}>Select token</button>
+  <button class="btn btn-neutral" on:click={openModal}>Select token</button>
 
   <dialog class="modal modal-bottom md:modal-middle" class:modal-open={modalOpen}>
     <div class="modal-box">

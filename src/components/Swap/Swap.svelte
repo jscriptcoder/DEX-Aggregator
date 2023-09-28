@@ -1,6 +1,11 @@
-<script>
-  import FaExchangeAlt from 'svelte-icons/fa/FaExchangeAlt.svelte';
+<script lang="ts">
   import TokenAmount from './TokenAmount.svelte';
+  import type { Token } from '../../libs/token/types';
+  import SwitchToken from './SwitchToken.svelte';
+
+  let tokenFrom: Token;
+  let tokenTo: Token;
+  let estimatedGas: bigint;
 </script>
 
 <div class="card">
@@ -9,15 +14,13 @@
     <p>Trade tokens in an instant</p>
 
     <div class="space-y-4 flex flex-col items-center my-4">
-      <TokenAmount />
+      <TokenAmount bind:token={tokenFrom} />
+      <SwitchToken bind:tokenFrom bind:tokenTo />
+      <TokenAmount bind:token={tokenTo} />
+    </div>
 
-      <button class="btn btn-circle">
-        <div class="rotate-90 w-6">
-          <FaExchangeAlt />
-        </div>
-      </button>
-
-      <TokenAmount />
+    <div>
+      Estimated Gas: {estimatedGas}
     </div>
 
     <div class="card-actions">

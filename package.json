@@ -39,6 +39,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@sveltestack/svelte-query": "^1.6.0",
     "@wagmi/core": "^1.4.2",
     "@web3modal/ethereum": "^2.7.1",
     "@web3modal/html": "^2.7.1",

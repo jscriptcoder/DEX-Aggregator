@@ -8,7 +8,9 @@ declare global {
 		// interface Platform {}
 	}
 
-  type Theme = 'light' | 'dark';
+  type Theme = 'light' | 'dark'
+
+  declare module 'svelte-icons/*'
 }
 
 export {};

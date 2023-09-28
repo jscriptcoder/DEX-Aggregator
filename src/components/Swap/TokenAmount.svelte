@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
   import TokenSelector from './TokenSelector.svelte';
+  import type { Token } from '../../libs/token/types';
+
+  export let token: Token;
 </script>
 
 <div class="TokenAmount">
@@ -14,6 +17,7 @@
       justify-between 
       outline-none 
       rounded-lg
+      bg-gray-900
       hover:shadow-[0_0_0_2px_#6419e6]
       w-full
       p-10;
