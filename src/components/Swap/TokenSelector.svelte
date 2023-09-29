@@ -99,7 +99,7 @@
 </script>
 
 <div class="TokenSelector">
-  <button class="btn btn-neutral min-w-[140px]" on:click={openModal}>
+  <button class="btn dark:btn-neutral min-w-[140px]" on:click={openModal}>
     {#if value}
       <div class="flex items-center space-x-2">
         <div class="avatar">

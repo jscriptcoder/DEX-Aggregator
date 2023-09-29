@@ -11,7 +11,7 @@
   }
 </script>
 
-<button class="btn btn-neutral btn-circle" on:click={switchTokens}>
+<button class="btn dark:btn-neutral btn-circle" on:click={switchTokens}>
   <div class="rotate-90 w-6">
     <FaExchangeAlt />
   </div>

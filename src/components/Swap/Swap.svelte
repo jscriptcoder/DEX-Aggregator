@@ -20,11 +20,11 @@
     </div>
 
     <div>
-      Estimated Gas: {estimatedGas}
+      Estimated Gas: {estimatedGas ?? '?'}
     </div>
 
     <div class="card-actions">
-      <button class="btn btn-primary w-full">Trade</button>
+      <button disabled class="btn btn-primary w-full">Trade</button>
     </div>
   </div>
 </div>
