@@ -10,7 +10,7 @@
 </script>
 
 <div class="TokenAmount">
-  <TokenSelector onSelect={onTokenSelect} />
+  <TokenSelector value={token} onSelect={onTokenSelect} />
   <input type="number" placeholder="0.0" min="0" step="0.1" />
 </div>
 

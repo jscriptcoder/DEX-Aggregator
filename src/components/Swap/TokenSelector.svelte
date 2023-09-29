@@ -11,6 +11,7 @@
   import Loading from '../Loading';
   import { tokenSelectorConfig } from '../../app.config';
 
+  export let value: Token;
   export let onSelect: OnTokenSelect;
 
   const { maxDisplay, inputWait } = tokenSelectorConfig;
@@ -18,7 +19,6 @@
   let modalOpen = false;
   let fetching = false;
   let errorFetching = false;
-  let selectedToken: Token;
   let inputElem: HTMLInputElement;
 
   let tokens: Token[] = []; // contains all the tokens
@@ -66,7 +66,6 @@
   }
 
   function selectToken(token: Token) {
-    selectedToken = token;
     onSelect(token);
     closeModal();
   }
@@ -101,12 +100,12 @@
 
 <div class="TokenSelector">
   <button class="btn btn-neutral min-w-[140px]" on:click={openModal}>
-    {#if selectedToken}
+    {#if value}
       <div class="flex items-center space-x-2">
         <div class="avatar">
-          <img src={selectedToken.logoURI} alt={selectedToken.name} />
+          <img src={value.logoURI} alt={value.name} />
         </div>
-        <span>{selectedToken.symbol}</span>
+        <span>{value.symbol}</span>
       </div>
     {:else}
       <span>Select token</span>
