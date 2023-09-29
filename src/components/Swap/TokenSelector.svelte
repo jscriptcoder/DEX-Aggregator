@@ -134,10 +134,12 @@
             <span>¯\_(ツ)_/¯</span>
           </div>
         {:else}
-          <ul>
+          <ul class="w-full h-full overflow-auto space-y-2">
             {#each displayTokens as token (token.address)}
               <li>
-                <button class="btn btn-ghost w-full justify-start" on:click={() => selectToken(token)}>
+                <button
+                  class="btn btn-ghost w-full justify-start flex items-center space-x-2"
+                  on:click={() => selectToken(token)}>
                   <div class="avatar w-[25px]">
                     <img src={token.logoURI} alt={token.name} />
                   </div>
@@ -176,13 +178,5 @@
 
   .token-list {
     @apply flex h-[320px] p-4;
-  }
-
-  ul {
-    @apply w-full h-full overflow-auto space-y-2;
-  }
-
-  li button {
-    @apply flex items-center space-x-2;
   }
 </style>
