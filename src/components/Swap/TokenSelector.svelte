@@ -18,6 +18,7 @@
   let modalOpen = false;
   let fetching = false;
   let errorFetching = false;
+  let selectedToken: Token;
   let inputElem: HTMLInputElement;
 
   let tokens: Token[] = []; // contains all the tokens
@@ -62,6 +63,12 @@
     displayTokens = filteredTokens.slice(0, maxDisplay * (displayedBlocks + 1));
   }
 
+  function selectToken(token: Token) {
+    selectedToken = token;
+    onSelect(token);
+    closeModal();
+  }
+
   onMount(async () => {
     try {
       fetching = true;
@@ -91,7 +98,18 @@
 </script>
 
 <div class="TokenSelector">
-  <button class="btn btn-neutral" on:click={openModal}>Select token</button>
+  <button class="btn btn-neutral min-w-[140px]" on:click={openModal}>
+    {#if selectedToken}
+      <div class="flex items-center space-x-2">
+        <div class="avatar">
+          <img src={selectedToken.logoURI} alt={selectedToken.name} />
+        </div>
+        <span>{selectedToken.symbol}</span>
+      </div>
+    {:else}
+      <span>Select token</span>
+    {/if}
+  </button>
 
   <dialog class="modal modal-bottom md:modal-middle" class:modal-open={modalOpen}>
     <div class="modal-box">
@@ -118,7 +136,7 @@
           <ul>
             {#each displayTokens as token (token.symbol)}
               <li>
-                <button class="btn btn-ghost w-full justify-start">
+                <button class="btn btn-ghost w-full justify-start" on:click={() => selectToken(token)}>
                   <div class="avatar w-[25px]">
                     <img src={token.logoURI} alt={token.name} />
                   </div>
