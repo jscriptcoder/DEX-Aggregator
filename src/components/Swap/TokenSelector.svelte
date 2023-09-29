@@ -136,14 +136,14 @@
           </div>
         {:else}
           <ul>
-            {#each displayTokens as token (token.symbol)}
+            {#each displayTokens as token (token.address)}
               <li>
                 <button class="btn btn-ghost w-full justify-start" on:click={() => selectToken(token)}>
                   <div class="avatar w-[25px]">
                     <img src={token.logoURI} alt={token.name} />
                   </div>
                   <div class="flex flex-col items-start">
-                    <span>{token.name}</span>
+                    <span class="capitalize">{token.name}</span>
                     <span class="text-[10px] uppercase">{token.symbol}</span>
                   </div>
                 </button>
