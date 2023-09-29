@@ -34,6 +34,7 @@
       p-4 
       flex-1 
       text-right
-      font-medium;
+      font-medium
+      text-2xl;
   }
 </style>
