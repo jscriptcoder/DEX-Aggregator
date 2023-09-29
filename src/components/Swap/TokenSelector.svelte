@@ -60,6 +60,8 @@
 
   function seeMoreTokens() {
     const displayedBlocks = displayTokens.length / maxDisplay;
+
+    // We want to display a new block: current blocks + 1
     displayTokens = filteredTokens.slice(0, maxDisplay * (displayedBlocks + 1));
   }
 
