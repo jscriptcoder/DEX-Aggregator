@@ -152,7 +152,7 @@
             {/each}
 
             {#if isMore}
-              <button class="btn btn-link no-underline lowercase" on:click={seeMoreTokens}>See more…</button>
+              <button class="btn btn-link no-underline capitalize" on:click={seeMoreTokens}>See more…</button>
             {/if}
           </ul>
         {/if}
