@@ -6,12 +6,14 @@
   import { onMount } from 'svelte';
   import debounce from 'debounce';
   import FaSearch from 'svelte-icons/fa/FaSearch.svelte';
-  import FaExclamationTriangle from 'svelte-icons/fa/FaExclamationTriangle.svelte';
   import fetchTokens from '../../libs/token/fetch';
   import type { Token } from '../../libs/token/types';
   import Loading from '../Loading';
+  import { tokenSelectorConfig } from '../../app.config';
 
   export let onSelect: OnTokenSelect;
+
+  const { maxDisplay, inputWait } = tokenSelectorConfig;
 
   let modalOpen = false;
   let fetching = false;
@@ -19,10 +21,12 @@
   let inputElem: HTMLInputElement;
 
   let tokens: Token[] = [];
+  let filteredTokens: Token[] = [];
   let indexTokenMap: Record<string, Token> = {};
   let displayTokens: Token[] = [];
 
   $: noTokens = displayTokens.length === 0;
+  $: isMore = filteredTokens.length > displayTokens.length;
 
   function openModal() {
     modalOpen = true;
@@ -37,24 +41,36 @@
     const input = event.target as HTMLInputElement;
     const loweredCaseText = input.value.toLowerCase();
 
-    displayTokens = Object.entries(indexTokenMap)
-      .reduce((acc, [index, token]) => {
+    if (loweredCaseText !== '') {
+      filteredTokens = Object.entries(indexTokenMap).reduce((acc, [index, token]) => {
         if (index.includes(loweredCaseText)) {
           acc.push(token);
         }
         return acc;
-      }, [] as Token[])
-      .slice(0, 12);
+      }, [] as Token[]);
+    } else {
+      filteredTokens = tokens;
+    }
+
+    displayTokens = filteredTokens.slice(0, maxDisplay);
   }
 
-  const debouncedOnInput = debounce(onInput, 300);
+  const debouncedOnInput = debounce(onInput, inputWait);
+
+  function seeMoreTokens() {
+    const displayedBlocks = displayTokens.length / maxDisplay;
+    displayTokens = filteredTokens.slice(0, maxDisplay * (displayedBlocks + 1));
+  }
 
   onMount(async () => {
     try {
       fetching = true;
       const responseData = await fetchTokens();
-      tokens = responseData.tokens;
+      tokens = filteredTokens = responseData.tokens;
 
+      // Creates a map to quickly look up tokens based
+      // on their name, symbol or address, by combining
+      // them all into an unique index
       indexTokenMap = tokens.reduce((acc, token) => {
         const name = token.name.toLowerCase();
         const symbol = token.symbol.toLowerCase();
@@ -65,7 +81,7 @@
         return acc;
       }, {} as Record<string, Token>);
 
-      displayTokens = tokens.slice(0, 12);
+      displayTokens = tokens.slice(0, tokenSelectorConfig.maxDisplay);
     } catch (err) {
       errorFetching = true;
     } finally {
@@ -99,20 +115,24 @@
             <span>¯\_(ツ)_/¯</span>
           </div>
         {:else}
-          <ul class="menu w-full">
-            {#each displayTokens as token}
+          <ul>
+            {#each displayTokens as token (token.symbol)}
               <li>
-                <button>
-                  <div class="avatar">
+                <button class="btn btn-ghost w-full justify-start">
+                  <div class="avatar w-[25px]">
                     <img src={token.logoURI} alt={token.name} />
                   </div>
-                  <div class="flex flex-col">
-                    <span class="font-medium">{token.name}</span>
-                    <span class="text-xs uppercase">{token.symbol}</span>
+                  <div class="flex flex-col items-start">
+                    <span>{token.name}</span>
+                    <span class="text-[10px] uppercase">{token.symbol}</span>
                   </div>
                 </button>
               </li>
             {/each}
+
+            {#if isMore}
+              <button class="btn btn-link no-underline lowercase" on:click={seeMoreTokens}>See more…</button>
+            {/if}
           </ul>
         {/if}
       </div>
@@ -137,5 +157,13 @@
 
   .token-list {
     @apply flex h-[320px] p-4;
+  }
+
+  ul {
+    @apply w-full h-full overflow-auto space-y-2;
+  }
+
+  li button {
+    @apply flex items-center space-x-2;
   }
 </style>
