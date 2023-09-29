@@ -20,10 +20,10 @@
   let errorFetching = false;
   let inputElem: HTMLInputElement;
 
-  let tokens: Token[] = [];
-  let filteredTokens: Token[] = [];
-  let indexTokenMap: Record<string, Token> = {};
-  let displayTokens: Token[] = [];
+  let tokens: Token[] = []; // contains all the tokens
+  let filteredTokens: Token[] = []; // keeps track of the filtered tokens
+  let displayTokens: Token[] = []; // contains only the tokens to be rendered
+  let indexTokenMap: Record<string, Token> = {}; // used for quick tokens look up
 
   $: noTokens = displayTokens.length === 0;
   $: isMore = filteredTokens.length > displayTokens.length;
