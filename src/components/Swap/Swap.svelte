@@ -6,6 +6,9 @@
   let tokenFrom: Token;
   let tokenTo: Token;
   let estimatedGas: bigint;
+
+  $: console.log('Token from:', tokenFrom);
+  $: console.log('Token to:', tokenTo);
 </script>
 
 <div class="Swap card">

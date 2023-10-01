@@ -1,5 +1,6 @@
 <script lang="ts">
   import ConnectButton from '../ConnectButton';
+  import ChainDropdown from '../ChainDropdown';
   import ThemeButton from './ThemeButton.svelte';
 </script>
 
@@ -12,6 +13,7 @@
   </div>
 
   <div class="flex items-center space-x-2">
+    <ChainDropdown />
     <ConnectButton />
     <ThemeButton />
   </div>
