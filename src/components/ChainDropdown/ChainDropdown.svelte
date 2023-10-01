@@ -19,7 +19,7 @@
       <ChainItem value={$network} />
     {/if}
   </button>
-  <ul tabindex="-1" class="dropdown-content z-10 menu p-2 shadow rounded-box dark:bg-gray-900 min-w-[200px]">
+  <ul tabindex="-1" class="dropdown-content menu">
     {#each chains as chain (chain.id)}
       <li>
         <button
@@ -31,3 +31,9 @@
     {/each}
   </ul>
 </div>
+
+<style lang="postcss">
+  .dropdown-content {
+    @apply z-10 p-2 shadow rounded-box dark:bg-gray-900 min-w-[200px];
+  }
+</style>
