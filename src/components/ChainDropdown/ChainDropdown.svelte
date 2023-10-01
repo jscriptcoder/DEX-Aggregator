@@ -19,7 +19,7 @@
       <ChainItem value={$network} />
     {/if}
   </button>
-  <ul tabindex="-1" class="dropdown-content z-10 menu p-2 shadow rounded-box">
+  <ul tabindex="-1" class="dropdown-content z-10 menu p-2 shadow rounded-box dark:bg-gray-900 min-w-[200px]">
     {#each chains as chain (chain.id)}
       <li>
         <button
