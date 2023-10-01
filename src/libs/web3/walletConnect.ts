@@ -1,7 +1,8 @@
 import { EthereumClient } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/html'
-import { chains, wagmiConfig } from './wagmi'
+import { wagmiConfig } from './wagmi'
 import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public'
+import { chains } from './chains'
 
 const projectId = PUBLIC_WALLET_CONNECT_PROJECT_ID
 const themeMode = (localStorage.getItem('theme') || 'dark') as Theme

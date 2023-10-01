@@ -3,8 +3,8 @@
   import { account } from '../../stores/account';
   import type { Chain } from 'viem';
   import { switchNetwork } from '@wagmi/core';
-  import { chains } from '../../libs/web3/wagmi';
   import ChainItem from './ChainItem.svelte';
+  import { chains } from '../../libs/web3/chains';
 
   $: isConnected = Boolean($account?.isConnected);
 
