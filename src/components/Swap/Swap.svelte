@@ -4,7 +4,7 @@
   import SwitchToken from './SwitchToken.svelte'
   import { getPrice } from '../../libs/token/price'
   import { network } from '../../stores/network'
-  import { errorToast } from '../NotificationToast'
+  import { errorToast, infoToast } from '../NotificationToast'
   import { parseUnits, type Chain, formatUnits } from 'viem'
 
   let tokenFrom: Token
@@ -61,7 +61,7 @@
     if (!canTrade) return
 
     // trading = true
-    // TODO
+    infoToast('TODO: implement')
   }
 
   // This function is called everytime one of the dependencies changes
