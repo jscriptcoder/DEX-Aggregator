@@ -1,20 +1,21 @@
-import type { PriceResponseData, Token } from './types'
+import type { Address } from 'viem'
+import type { PriceResponseData } from './types'
 
 type GetPriceArgs = {
-  tokenFrom: Token
-  tokenTo: Token
-  amount: bigint
-  chainId: number
+  sellToken: Address
+  buyToken: Address
+  sellAmount: string
+  chainId: string
 }
 
-export async function getPrice({ tokenFrom, tokenTo, amount, chainId }: GetPriceArgs): Promise<PriceResponseData> {
-  if (!tokenFrom || !tokenTo || !amount || !chainId) throw new Error('Missing arguments')
+export async function getPrice({ sellToken, buyToken, sellAmount, chainId }: GetPriceArgs): Promise<PriceResponseData> {
+  if (!sellToken || !buyToken || !sellAmount || !chainId) throw new Error('Missing arguments')
 
   const queryParams = new URLSearchParams({
-    sellToken: tokenFrom.address,
-    buyToken: tokenTo.address,
-    sellAmount: amount.toString(),
-    chainId: chainId.toString(),
+    sellToken,
+    buyToken,
+    sellAmount,
+    chainId,
   })
 
   const response = await fetch(`api/0x?${queryParams}`)

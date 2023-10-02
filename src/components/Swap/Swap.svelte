@@ -5,49 +5,67 @@
   import { getPrice } from '../../libs/token/price'
   import { network } from '../../stores/network'
   import { errorToast } from '../NotificationToast'
-  import { parseUnits } from 'viem'
+  import { parseUnits, type Chain, formatUnits } from 'viem'
 
   let tokenFrom: Token
   let amountFrom: bigint
   let tokenTo: Token
   let amountTo: bigint
-  let estimatedGas: string
-  let canTrade: boolean = false
+  let estimatedGas: bigint
 
-  // TODO: loading state for getting price
+  let displayEstimatedGas: string = ''
+  let canTrade: boolean = false
+  let gettingPrice: boolean = false
+  let trading: boolean = false
 
   $: console.log('Token from:', tokenFrom)
   $: console.log('Amount from:', amountFrom)
   $: console.log('Token to:', tokenTo)
   $: console.log('Amount to:', amountTo)
 
-  // Only query when we have all the parameters for our endpoint
-  $: if (tokenFrom && tokenTo && amountFrom && $network) {
+  async function requestPrice(from?: Token, to?: Token, amount?: bigint, chain?: Chain) {
+    // We only want to query the price if all the required data is present
+    if (!from || !to || !amount || !chain) return
+
     canTrade = false
+    gettingPrice = true
+    displayEstimatedGas = ''
 
-    getPrice({
-      tokenFrom,
-      tokenTo,
-      amount: amountFrom,
-      chainId: $network.id,
-    })
-      .then((priceData) => {
-        console.log('Price data:', priceData)
+    try {
+      const priceData = await getPrice({
+        sellToken: from.address,
+        buyToken: to.address,
+        sellAmount: amount.toString(),
+        chainId: chain.id.toString(),
+      })
 
-        // TODO
-        amountTo = parseUnits(priceData.price, tokenTo.decimals)
-        estimatedGas = priceData.estimatedGas
+      console.log('Price data:', priceData)
 
-        canTrade = true
-      })
-      .catch((err) => {
-        console.error(err)
-        errorToast('There was an error fetching the price.')
-      })
-      .finally(() => {
-        // TODO
-      })
+      amountTo = parseUnits(priceData.price, tokenTo.decimals)
+
+      // Work out the estimated gas in the chain's native currency
+      const { nativeCurrency } = chain
+      estimatedGas = BigInt(priceData.estimatedGas)
+      displayEstimatedGas = `${formatUnits(estimatedGas, nativeCurrency.decimals)} ${nativeCurrency.symbol}`
+
+      canTrade = true
+    } catch (err) {
+      console.error(err)
+      errorToast('There was an error fetching the price.')
+    } finally {
+      gettingPrice = false
+    }
   }
+
+  async function trade() {
+    if (!canTrade) return
+
+    // trading = true
+    // TODO
+  }
+
+  // This function is called everytime one of the dependencies changes
+  $: requestPrice(tokenFrom, tokenTo, amountFrom, $network)
 </script>
 
 <div class="Swap card">
@@ -62,11 +80,11 @@
     </div>
 
     <div>
-      Estimated Gas: {estimatedGas ?? '?'}
+      Estimated Gas: {displayEstimatedGas ?? '?'}
     </div>
 
     <div class="card-actions">
-      <button disabled={!estimatedGas} class="btn btn-primary w-full">Trade</button>
+      <button disabled={!canTrade} class="btn btn-primary w-full" on:click={trade}>Trade</button>
     </div>
   </div>
 </div>
