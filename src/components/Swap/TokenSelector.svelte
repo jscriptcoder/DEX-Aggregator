@@ -100,16 +100,16 @@
 </script>
 
 <div class="TokenSelector">
-  <button class="btn dark:btn-neutral min-w-[140px]" on:click={openModal}>
+  <button class="btn dark:btn-neutral btn-sm md:btn-md md:min-w-[140px]" on:click={openModal}>
     {#if value}
       <div class="flex items-center space-x-2">
         <div class="avatar">
           <img src={value.logoURI} alt={value.name} />
         </div>
-        <span>{value.symbol}</span>
+        <span class="token-label">{value.symbol}</span>
       </div>
     {:else}
-      <span>Select token</span>
+      <span class="token-label capitalize">Select token</span>
     {/if}
   </button>
 
@@ -169,6 +169,10 @@
       items-center 
       justify-between 
       gap-2;
+  }
+
+  .token-label {
+    @apply text-xs md:text-base;
   }
 
   input {

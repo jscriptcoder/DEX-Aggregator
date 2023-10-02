@@ -79,12 +79,12 @@
       <TokenAmount bind:token={tokenTo} bind:amount={amountTo} disableToken={tokenFrom} readonly />
     </div>
 
-    <div>
+    <div class="text-sm md:text-base">
       Estimated Gas: {displayEstimatedGas ?? '?'}
     </div>
 
     <div class="card-actions">
-      <button disabled={!canTrade} class="btn btn-primary btn-lg w-full" on:click={trade}>Trade</button>
+      <button disabled={!canTrade} class="btn btn-primary btn-md md:btn-lg w-full" on:click={trade}>Trade</button>
     </div>
   </div>
 </div>

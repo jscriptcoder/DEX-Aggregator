@@ -58,17 +58,21 @@
       dark:bg-gray-900
       hover:shadow-[0_0_0_2px_#6419e6]
       w-full
-      gap-4
-      p-6;
+      gap-2
+      p-4
+      md:gap-4
+      md:p-6;
   }
 
   input {
     @apply bg-transparent 
       outline-none 
-      p-4 
       flex-1 
       text-right
-      font-medium
-      text-2xl;
+      w-full
+      p-2
+      md:p-4
+      md:font-medium
+      md:text-2xl;
   }
 </style>
