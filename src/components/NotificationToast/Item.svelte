@@ -27,13 +27,13 @@
   };
 
   const icon = iconTypeMap[type];
-  const alertClasses = `alert ${alertClassMap}`;
+  const alertClasses = `alert ${alertClassMap[type]}`;
 </script>
 
 <div role="alert" class={alertClasses}>
-  <div>
+  <div class="flex items-center space-x-2">
     {#if icon}
-      <div class="alert-icon">
+      <div class="w-6">
         <svelte:component this={icon} />
       </div>
     {/if}

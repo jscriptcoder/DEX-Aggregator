@@ -4,7 +4,7 @@
   import Header from '../components/Header';
   import Swap from '../components/Swap';
   import { startWatching } from '../libs/web3/connection';
-  import Notification from '../components/Notification/Notification.svelte';
+  import NotificationToast from '../components/NotificationToast';
 
   onMount(startWatching);
 </script>
@@ -16,7 +16,7 @@
   </main>
 </div>
 
-<Notification />
+<NotificationToast />
 
 <style lang="postcss">
   .container {

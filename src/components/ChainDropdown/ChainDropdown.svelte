@@ -1,15 +1,25 @@
 <script lang="ts">
   import { network } from '../../stores/network';
   import { account } from '../../stores/account';
-  import type { Chain } from 'viem';
+  import { UserRejectedRequestError, type Chain } from 'viem';
   import { switchNetwork } from '@wagmi/core';
   import ChainItem from './ChainItem.svelte';
   import { chains } from '../../libs/web3/chains';
+  import { errorToast, warningToast } from '../NotificationToast';
 
   $: isConnected = Boolean($account?.isConnected);
 
   async function selectNetwork(newNetwork: Chain) {
-    await switchNetwork({ chainId: newNetwork.id });
+    try {
+      await switchNetwork({ chainId: newNetwork.id });
+    } catch (err) {
+      console.error(err);
+      if (err instanceof UserRejectedRequestError) {
+        warningToast('User cancelled switching network.');
+      } else {
+        errorToast('Failed to switch network.');
+      }
+    }
   }
 </script>
 

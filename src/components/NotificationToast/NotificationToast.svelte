@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { toast } from '@zerodevx/svelte-toast';
-  import Item from './Toast.svelte';
+  import Item from './Item.svelte';
   import { uid } from '../../libs/utils/uid';
   import type { TypeToast } from './types';
 
