@@ -29,7 +29,7 @@
   }
 
   const icon = iconTypeMap[type]
-  const alertClasses = `alert ${alertClassMap[type]}`
+  const alertClasses = `alert flex justify-between ${alertClassMap[type]}`
 </script>
 
 <div role="alert" class={alertClasses}>
