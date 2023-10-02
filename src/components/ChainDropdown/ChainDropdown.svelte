@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="dropdown">
+<div class="dropdown hidden md:block">
   <button class="btn" disabled={!isConnected}>
     {#if $network?.name}
       <ChainItem value={$network} />

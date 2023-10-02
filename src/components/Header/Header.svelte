@@ -7,9 +7,9 @@
 <header>
   <div class="flex items-center space-x-2">
     <div class="mask mask-squircle">
-      <img src="/dex-logo.png" alt="logo" />
+      <img src="/dex-logo.png" alt="logo" title="DEX Aggregator" />
     </div>
-    <h1>DEX Aggregator</h1>
+    <h1 class="hidden md:block">DEX Aggregator</h1>
   </div>
 
   <div class="flex items-center space-x-2">

@@ -26,6 +26,7 @@
   function onInput(event: Event) {
     const input = event.target as HTMLInputElement
     const value = input.value
+
     amount = parseUnits(value, token.decimals)
   }
 
@@ -58,7 +59,7 @@
       hover:shadow-[0_0_0_2px_#6419e6]
       w-full
       gap-4
-      p-8;
+      p-6;
   }
 
   input {
