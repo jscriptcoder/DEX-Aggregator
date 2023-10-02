@@ -5,12 +5,16 @@
   import { getPrice } from '../../libs/token/price'
   import { network } from '../../stores/network'
   import { errorToast } from '../NotificationToast'
+  import { parseUnits } from 'viem'
 
   let tokenFrom: Token
   let amountFrom: bigint
   let tokenTo: Token
   let amountTo: bigint
-  let estimatedGas: bigint
+  let estimatedGas: string
+  let canTrade: boolean = false
+
+  // TODO: loading state for getting price
 
   $: console.log('Token from:', tokenFrom)
   $: console.log('Amount from:', amountFrom)
@@ -19,6 +23,8 @@
 
   // Only query when we have all the parameters for our endpoint
   $: if (tokenFrom && tokenTo && amountFrom && $network) {
+    canTrade = false
+
     getPrice({
       tokenFrom,
       tokenTo,
@@ -27,6 +33,12 @@
     })
       .then((priceData) => {
         console.log('Price data:', priceData)
+
+        // TODO
+        amountTo = parseUnits(priceData.price, tokenTo.decimals)
+        estimatedGas = priceData.estimatedGas
+
+        canTrade = true
       })
       .catch((err) => {
         console.error(err)
@@ -54,7 +66,7 @@
     </div>
 
     <div class="card-actions">
-      <button disabled class="btn btn-primary w-full">Trade</button>
+      <button disabled={!estimatedGas} class="btn btn-primary w-full">Trade</button>
     </div>
   </div>
 </div>
