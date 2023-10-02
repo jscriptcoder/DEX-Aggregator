@@ -1,21 +1,21 @@
 <script lang="ts">
-  import TokenAmount from './TokenAmount.svelte';
-  import type { Token } from '../../libs/token/types';
-  import SwitchToken from './SwitchToken.svelte';
-  import { getPrice } from '../../libs/token/price';
-  import { network } from '../../stores/network';
-  import { errorToast } from '../NotificationToast';
+  import TokenAmount from './TokenAmount.svelte'
+  import type { Token } from '../../libs/token/types'
+  import SwitchToken from './SwitchToken.svelte'
+  import { getPrice } from '../../libs/token/price'
+  import { network } from '../../stores/network'
+  import { errorToast } from '../NotificationToast'
 
-  let tokenFrom: Token;
-  let amountFrom: bigint;
-  let tokenTo: Token;
-  let amountTo: bigint;
-  let estimatedGas: bigint;
+  let tokenFrom: Token
+  let amountFrom: bigint
+  let tokenTo: Token
+  let amountTo: bigint
+  let estimatedGas: bigint
 
-  $: console.log('Token from:', tokenFrom);
-  $: console.log('Amount from:', amountFrom);
-  $: console.log('Token to:', tokenTo);
-  $: console.log('Amount to:', amountTo);
+  $: console.log('Token from:', tokenFrom)
+  $: console.log('Amount from:', amountFrom)
+  $: console.log('Token to:', tokenTo)
+  $: console.log('Amount to:', amountTo)
 
   // Only query when we have all the parameters for our endpoint
   $: if (tokenFrom && tokenTo && amountFrom && $network) {
@@ -26,15 +26,15 @@
       chainId: $network.id,
     })
       .then((priceData) => {
-        console.log('Price data:', priceData);
+        console.log('Price data:', priceData)
       })
       .catch((err) => {
-        console.error(err);
-        errorToast('There was an error fetching the price.');
+        console.error(err)
+        errorToast('There was an error fetching the price.')
       })
       .finally(() => {
         // TODO
-      });
+      })
   }
 </script>
 

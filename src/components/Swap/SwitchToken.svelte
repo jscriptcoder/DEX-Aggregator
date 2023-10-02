@@ -1,13 +1,13 @@
 <script lang="ts">
-  import FaExchangeAlt from 'svelte-icons/fa/FaExchangeAlt.svelte';
-  import type { Token } from '../../libs/token/types';
+  import FaExchangeAlt from 'svelte-icons/fa/FaExchangeAlt.svelte'
+  import type { Token } from '../../libs/token/types'
 
-  export let tokenFrom: Token;
-  export let tokenTo: Token;
+  export let tokenFrom: Token
+  export let tokenTo: Token
 
   function switchTokens() {
-    if (!tokenFrom || !tokenTo) return;
-    [tokenFrom, tokenTo] = [tokenTo, tokenFrom];
+    if (!tokenFrom || !tokenTo) return
+    ;[tokenFrom, tokenTo] = [tokenTo, tokenFrom]
   }
 </script>
 

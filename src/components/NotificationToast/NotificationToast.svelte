@@ -1,12 +1,12 @@
 <script lang="ts" context="module">
-  import { toast } from '@zerodevx/svelte-toast';
-  import Item from './Item.svelte';
-  import { uid } from '../../libs/utils/uid';
-  import type { TypeToast } from './types';
+  import { toast } from '@zerodevx/svelte-toast'
+  import Item from './Item.svelte'
+  import { uid } from '../../libs/utils/uid'
+  import type { TypeToast } from './types'
 
   export function notify(message: string, type: TypeToast = 'unknown', closeManually = false) {
-    const id = Number(uid());
-    const close = () => toast.pop(id);
+    const id = Number(uid())
+    const close = () => toast.pop(id)
 
     toast.push({
       id,
@@ -15,35 +15,35 @@
         src: Item,
         props: { type, message, close },
       },
-    });
+    })
   }
 
   export function successToast(message: string, closeManually = false) {
-    notify(message, 'success', closeManually);
+    notify(message, 'success', closeManually)
   }
 
   export function errorToast(message: string, closeManually = true) {
-    notify(message, 'error', closeManually);
+    notify(message, 'error', closeManually)
   }
 
   export function warningToast(message: string, closeManually = false) {
-    notify(message, 'warning', closeManually);
+    notify(message, 'warning', closeManually)
   }
 
   export function infoToast(message: string, closeManually = false) {
-    notify(message, 'info', closeManually);
+    notify(message, 'info', closeManually)
   }
 </script>
 
 <script lang="ts">
-  import { SvelteToast } from '@zerodevx/svelte-toast';
-  import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores';
-  import { notificarionConfig } from '../../app.config';
+  import { SvelteToast } from '@zerodevx/svelte-toast'
+  import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores'
+  import { notificarionConfig } from '../../app.config'
 
   const options: SvelteToastOptions = {
     duration: notificarionConfig.duration,
     pausable: false,
-  };
+  }
 </script>
 
 <div class="Notification">

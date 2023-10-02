@@ -16,7 +16,7 @@ export const web3modal = new Web3Modal(
     themeVariables: {
       '--w3m-accent-color': 'hsl(262 80% 50%)',
       '--w3m-background-color': 'hsl(262 80% 50%)',
-    }
+    },
   },
-  ethereumClient
+  ethereumClient,
 )

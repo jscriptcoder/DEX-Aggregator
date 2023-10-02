@@ -1,5 +1,5 @@
 export const apiConfig = {
-  tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json'
+  tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
 }
 
 export const inputConfig = {

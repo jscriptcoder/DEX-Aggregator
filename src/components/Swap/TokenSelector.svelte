@@ -1,101 +1,101 @@
 <script lang="ts" context="module">
-  export type OnTokenSelect = (token: Token) => void;
+  export type OnTokenSelect = (token: Token) => void
 </script>
 
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import debounce from 'debounce';
-  import FaSearch from 'svelte-icons/fa/FaSearch.svelte';
-  import fetchTokens from '../../libs/token/fetch';
-  import type { Token } from '../../libs/token/types';
-  import Loading from '../Loading';
-  import { inputConfig, tokenSelectorConfig } from '../../app.config';
+  import { onMount } from 'svelte'
+  import debounce from 'debounce'
+  import FaSearch from 'svelte-icons/fa/FaSearch.svelte'
+  import fetchTokens from '../../libs/token/fetch'
+  import type { Token } from '../../libs/token/types'
+  import Loading from '../Loading'
+  import { inputConfig, tokenSelectorConfig } from '../../app.config'
 
-  export let value: Token;
-  export let onSelect: OnTokenSelect;
+  export let value: Token
+  export let onSelect: OnTokenSelect
 
-  const { maxDisplay } = tokenSelectorConfig;
+  const { maxDisplay } = tokenSelectorConfig
 
-  let modalOpen = false;
-  let fetching = false;
-  let errorFetching = false;
-  let inputElem: HTMLInputElement;
+  let modalOpen = false
+  let fetching = false
+  let errorFetching = false
+  let inputElem: HTMLInputElement
 
-  let tokens: Token[] = []; // contains all the tokens
-  let filteredTokens: Token[] = []; // keeps track of the filtered tokens
-  let displayTokens: Token[] = []; // contains only the tokens to be rendered
-  let indexTokenMap: Record<string, Token> = {}; // used for quick tokens look up
+  let tokens: Token[] = [] // contains all the tokens
+  let filteredTokens: Token[] = [] // keeps track of the filtered tokens
+  let displayTokens: Token[] = [] // contains only the tokens to be rendered
+  let indexTokenMap: Record<string, Token> = {} // used for quick tokens look up
 
-  $: noTokens = displayTokens.length === 0;
-  $: isMore = filteredTokens.length > displayTokens.length;
+  $: noTokens = displayTokens.length === 0
+  $: isMore = filteredTokens.length > displayTokens.length
 
   function openModal() {
-    modalOpen = true;
-    inputElem.focus();
+    modalOpen = true
+    inputElem.focus()
   }
 
   function closeModal() {
-    modalOpen = false;
+    modalOpen = false
   }
 
   function onInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const loweredCaseText = input.value.toLowerCase();
+    const input = event.target as HTMLInputElement
+    const loweredCaseText = input.value.toLowerCase()
 
     if (loweredCaseText !== '') {
       filteredTokens = Object.entries(indexTokenMap).reduce((acc, [index, token]) => {
         if (index.includes(loweredCaseText)) {
-          acc.push(token);
+          acc.push(token)
         }
-        return acc;
-      }, [] as Token[]);
+        return acc
+      }, [] as Token[])
     } else {
-      filteredTokens = tokens;
+      filteredTokens = tokens
     }
 
-    displayTokens = filteredTokens.slice(0, maxDisplay);
+    displayTokens = filteredTokens.slice(0, maxDisplay)
   }
 
-  const debouncedOnInput = debounce(onInput, inputConfig.debounceWait);
+  const debouncedOnInput = debounce(onInput, inputConfig.debounceWait)
 
   function seeMoreTokens() {
-    const displayedBlocks = displayTokens.length / maxDisplay;
+    const displayedBlocks = displayTokens.length / maxDisplay
 
     // We want to display a new block: current blocks + 1
-    displayTokens = filteredTokens.slice(0, maxDisplay * (displayedBlocks + 1));
+    displayTokens = filteredTokens.slice(0, maxDisplay * (displayedBlocks + 1))
   }
 
   function selectToken(token: Token) {
-    onSelect(token);
-    closeModal();
+    onSelect(token)
+    closeModal()
   }
 
   onMount(async () => {
     try {
-      fetching = true;
-      const responseData = await fetchTokens();
-      tokens = filteredTokens = responseData.tokens;
+      fetching = true
+      const responseData = await fetchTokens()
+      tokens = filteredTokens = responseData.tokens
 
       // Creates a map to quickly look up tokens based
       // on their name, symbol or address, by combining
       // them all into an unique index
       indexTokenMap = tokens.reduce((acc, token) => {
-        const name = token.name.toLowerCase();
-        const symbol = token.symbol.toLowerCase();
-        const address = token.address.toLowerCase();
-        const index = `${name}|${symbol}|${address}`;
+        const name = token.name.toLowerCase()
+        const symbol = token.symbol.toLowerCase()
+        const address = token.address.toLowerCase()
+        const index = `${name}|${symbol}|${address}`
 
-        acc[index] = token;
-        return acc;
-      }, {} as Record<string, Token>);
+        acc[index] = token
+        return acc
+      }, {} as Record<string, Token>)
 
-      displayTokens = tokens.slice(0, tokenSelectorConfig.maxDisplay);
+      displayTokens = tokens.slice(0, tokenSelectorConfig.maxDisplay)
     } catch (err) {
-      errorFetching = true;
+      errorFetching = true
     } finally {
-      fetching = false;
+      fetching = false
     }
-  });
+  })
 </script>
 
 <div class="TokenSelector">

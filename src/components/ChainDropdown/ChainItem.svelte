@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Chain } from 'viem';
-  import { chainMetaMap } from '../../libs/web3/chains';
+  import type { Chain } from 'viem'
+  import { chainMetaMap } from '../../libs/web3/chains'
 
-  export let value: Chain;
+  export let value: Chain
 
-  $: chainIconSrc = value?.id ? chainMetaMap[value.id]?.icon : null;
+  $: chainIconSrc = value?.id ? chainMetaMap[value.id]?.icon : null
 </script>
 
 {#if value?.id}

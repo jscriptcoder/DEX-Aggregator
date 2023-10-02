@@ -1,13 +1,13 @@
 import { watchAccount, watchNetwork } from '@wagmi/core'
-import { network } from '../../stores/network';
-import { account } from '../../stores/account';
+import { network } from '../../stores/network'
+import { account } from '../../stores/account'
 
 let isWatching = false
-let unwatchNetwork: () => void;
-let unwatchAccount: () => void;
+let unwatchNetwork: () => void
+let unwatchAccount: () => void
 
 export function startWatching() {
-  if(isWatching) return
+  if (isWatching) return
 
   unwatchNetwork = watchNetwork(async (networkResult) => {
     console.log('Network change:', networkResult.chain)

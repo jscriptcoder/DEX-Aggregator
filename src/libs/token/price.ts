@@ -1,14 +1,14 @@
-import type { PriceResponseData, Token } from "./types";
+import type { PriceResponseData, Token } from './types'
 
 type GetPriceArgs = {
-  tokenFrom: Token,
-  tokenTo: Token,
-  amount: bigint,
-  chainId: number,
+  tokenFrom: Token
+  tokenTo: Token
+  amount: bigint
+  chainId: number
 }
 
-export async function getPrice({tokenFrom, tokenTo, amount, chainId}: GetPriceArgs): Promise<PriceResponseData> {
-  if(!tokenFrom || !tokenTo || !amount || !chainId) throw new Error('Missing arguments')
+export async function getPrice({ tokenFrom, tokenTo, amount, chainId }: GetPriceArgs): Promise<PriceResponseData> {
+  if (!tokenFrom || !tokenTo || !amount || !chainId) throw new Error('Missing arguments')
 
   const queryParams = new URLSearchParams({
     sellToken: tokenFrom.address,

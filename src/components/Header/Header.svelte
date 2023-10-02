@@ -1,7 +1,7 @@
 <script lang="ts">
-  import ConnectButton from '../ConnectButton';
-  import ChainDropdown from '../ChainDropdown';
-  import ThemeButton from './ThemeButton.svelte';
+  import ConnectButton from '../ConnectButton'
+  import ChainDropdown from '../ChainDropdown'
+  import ThemeButton from './ThemeButton.svelte'
 </script>
 
 <header>
