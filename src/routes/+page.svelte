@@ -4,6 +4,7 @@
   import Header from '../components/Header';
   import Swap from '../components/Swap';
   import { startWatching } from '../libs/web3/connection';
+  import Notification from '../components/Notification/Notification.svelte';
 
   onMount(startWatching);
 </script>
@@ -14,6 +15,8 @@
     <Swap />
   </main>
 </div>
+
+<Notification />
 
 <style lang="postcss">
   .container {
