@@ -2,9 +2,12 @@ export const apiConfig = {
   tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json'
 }
 
+export const inputConfig = {
+  debounceWait: 300,
+}
+
 export const tokenSelectorConfig = {
   maxDisplay: 12,
-  inputWait: 300,
 }
 
 export const notificarionConfig = {

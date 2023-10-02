@@ -9,12 +9,12 @@
   import fetchTokens from '../../libs/token/fetch';
   import type { Token } from '../../libs/token/types';
   import Loading from '../Loading';
-  import { tokenSelectorConfig } from '../../app.config';
+  import { inputConfig, tokenSelectorConfig } from '../../app.config';
 
   export let value: Token;
   export let onSelect: OnTokenSelect;
 
-  const { maxDisplay, inputWait } = tokenSelectorConfig;
+  const { maxDisplay } = tokenSelectorConfig;
 
   let modalOpen = false;
   let fetching = false;
@@ -56,7 +56,7 @@
     displayTokens = filteredTokens.slice(0, maxDisplay);
   }
 
-  const debouncedOnInput = debounce(onInput, inputWait);
+  const debouncedOnInput = debounce(onInput, inputConfig.debounceWait);
 
   function seeMoreTokens() {
     const displayedBlocks = displayTokens.length / maxDisplay;

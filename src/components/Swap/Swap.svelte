@@ -2,13 +2,20 @@
   import TokenAmount from './TokenAmount.svelte';
   import type { Token } from '../../libs/token/types';
   import SwitchToken from './SwitchToken.svelte';
+  import { getPrice } from '../../libs/token/price';
 
   let tokenFrom: Token;
+  let amountFrom: bigint;
   let tokenTo: Token;
+  let amountTo: bigint;
   let estimatedGas: bigint;
 
   $: console.log('Token from:', tokenFrom);
+  $: console.log('Amount from:', amountFrom);
   $: console.log('Token to:', tokenTo);
+  $: console.log('Amount to:', amountTo);
+
+  $: getPrice({ tokenFrom, tokenTo, amount: amountFrom, chainId: 1 }).then((data) => console.log(data));
 </script>
 
 <div class="Swap card">
@@ -17,9 +24,9 @@
     <p>Trade tokens in an instant</p>
 
     <div class="space-y-4 flex flex-col items-center my-4">
-      <TokenAmount bind:token={tokenFrom} />
+      <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} />
       <SwitchToken bind:tokenFrom bind:tokenTo />
-      <TokenAmount bind:token={tokenTo} />
+      <TokenAmount bind:token={tokenTo} bind:amount={amountTo} readonly />
     </div>
 
     <div>

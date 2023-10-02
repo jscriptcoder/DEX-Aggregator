@@ -12,3 +12,8 @@ export type Token = {
 export type FetchResponseData = {
   tokens: Token[]
 }
+
+export type PriceResponseData = {
+  price: string,
+  estimatedGas: string
+}
