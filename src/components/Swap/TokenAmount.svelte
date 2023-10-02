@@ -4,16 +4,22 @@
   import TokenSelector from './TokenSelector.svelte'
   import { debounce } from 'debounce'
   import { inputConfig } from '../../app.config'
+  import { tick } from 'svelte'
 
   export let token: Token
   export let amount: bigint
   export let readonly = false
+
+  let inputElem: HTMLInputElement
 
   $: value = amount ? formatUnits(amount, token.decimals) : ''
   $: isTokenSelected = Boolean(token)
 
   function onTokenSelect(_token: Token) {
     token = _token
+
+    // We need to wait for the DOM to update before focusing the input
+    tick().then(() => inputElem.focus())
   }
 
   function onInput(event: Event) {
@@ -35,7 +41,8 @@
     {value}
     {readonly}
     disabled={!isTokenSelected}
-    on:input={debouncedOnInput} />
+    on:input={debouncedOnInput}
+    bind:this={inputElem} />
 </div>
 
 <style lang="postcss">
