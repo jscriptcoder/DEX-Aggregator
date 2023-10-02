@@ -61,7 +61,7 @@
     if (!canTrade) return
 
     // trading = true
-    infoToast('TODO: implement', true)
+    infoToast('TODO: implement')
   }
 
   // This function is called everytime one of the dependencies changes
