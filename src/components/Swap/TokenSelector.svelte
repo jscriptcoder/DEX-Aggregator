@@ -13,6 +13,7 @@
 
   export let value: Token
   export let onSelect: OnTokenSelect
+  export let disableValue: Token // TODO: prop drilling. Store?
 
   const { maxDisplay } = tokenSelectorConfig
 
@@ -138,6 +139,7 @@
             {#each displayTokens as token (token.address)}
               <li>
                 <button
+                  disabled={token.address === disableValue?.address}
                   class="btn btn-ghost w-full justify-start flex items-center space-x-2"
                   on:click={() => selectToken(token)}>
                   <div class="avatar w-[25px]">

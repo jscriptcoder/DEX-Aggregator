@@ -9,6 +9,7 @@
   export let token: Token
   export let amount: bigint
   export let readonly = false
+  export let disableToken: Token
 
   let inputElem: HTMLInputElement
 
@@ -32,7 +33,7 @@
 </script>
 
 <div class="TokenAmount">
-  <TokenSelector value={token} onSelect={onTokenSelect} />
+  <TokenSelector value={token} onSelect={onTokenSelect} disableValue={disableToken} />
   <input
     type="number"
     placeholder="0.0"
