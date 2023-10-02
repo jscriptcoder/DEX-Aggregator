@@ -84,7 +84,7 @@
     </div>
 
     <div class="card-actions">
-      <button disabled={!canTrade} class="btn btn-primary w-full" on:click={trade}>Trade</button>
+      <button disabled={!canTrade} class="btn btn-primary btn-lg w-full" on:click={trade}>Trade</button>
     </div>
   </div>
 </div>
