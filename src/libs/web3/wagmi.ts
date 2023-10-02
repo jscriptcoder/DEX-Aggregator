@@ -19,6 +19,6 @@ export function isChainSupported(chainId: number | string) {
 
 export function checkSupportedChain (chainId: number) {
   if(!isChainSupported(chainId)) {
-    throw new Error('Chain is not supported.')
+    throw new Error('Chain is not supported')
   }
 }

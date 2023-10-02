@@ -3,6 +3,8 @@
   import type { Token } from '../../libs/token/types';
   import SwitchToken from './SwitchToken.svelte';
   import { getPrice } from '../../libs/token/price';
+  import { network } from '../../stores/network';
+  import { errorToast } from '../NotificationToast';
 
   let tokenFrom: Token;
   let amountFrom: bigint;
@@ -15,7 +17,25 @@
   $: console.log('Token to:', tokenTo);
   $: console.log('Amount to:', amountTo);
 
-  $: getPrice({ tokenFrom, tokenTo, amount: amountFrom, chainId: 1 }).then((data) => console.log(data));
+  // Only query when we have all the parameters for our endpoint
+  $: if (tokenFrom && tokenTo && amountFrom && $network) {
+    getPrice({
+      tokenFrom,
+      tokenTo,
+      amount: amountFrom,
+      chainId: $network.id,
+    })
+      .then((priceData) => {
+        console.log('Price data:', priceData);
+      })
+      .catch((err) => {
+        console.error(err);
+        errorToast('There was an error fetching the price.');
+      })
+      .finally(() => {
+        // TODO
+      });
+  }
 </script>
 
 <div class="Swap card">
