@@ -27,7 +27,7 @@
   })
 </script>
 
-<button class="btn btn-sm" on:click={toggleTheme} title="Toggle theme">
+<button class="md:btn md:btn-sm" on:click={toggleTheme} title="Toggle theme">
   <div class="h-4 w-4">
     {#if isDarkTheme}
       <FaSun />

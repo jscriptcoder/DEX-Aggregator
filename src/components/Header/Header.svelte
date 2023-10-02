@@ -9,7 +9,7 @@
     <div class="mask mask-squircle">
       <img src="/dex-logo.png" alt="logo" title="DEX Aggregator" />
     </div>
-    <h1 class="hidden md:block">DEX Aggregator</h1>
+    <h1>DEX <span class="hidden md:block">Aggregator</span></h1>
   </div>
 
   <div class="flex items-center space-x-2">
@@ -21,7 +21,7 @@
 
 <style lang="postcss">
   header {
-    @apply flex justify-between items-center py-4;
+    @apply flex justify-between items-center p-2 md:px-0 md:py-4;
   }
 
   h1 {

@@ -54,14 +54,14 @@
       justify-between 
       outline-none 
       rounded-lg
-      bg-gray-50
-      dark:bg-gray-900
-      hover:shadow-[0_0_0_2px_#6419e6]
       w-full
       gap-2
       p-4
+      bg-gray-50
+      dark:bg-gray-900
       md:gap-4
-      md:p-6;
+      md:p-6
+      md:hover:shadow-[0_0_0_2px_#6419e6];
   }
 
   input {

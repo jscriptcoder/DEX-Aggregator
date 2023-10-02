@@ -69,7 +69,7 @@
 </script>
 
 <div class="Swap card">
-  <div class="card-body">
+  <div class="card-body p-4 md:p-8">
     <h2 class="card-title">Swap</h2>
     <p>Trade tokens in an instant</p>
 
@@ -91,6 +91,6 @@
 
 <style lang="postcss">
   .Swap {
-    @apply w-full shadow-xl md:w-[600px] dark:bg-black;
+    @apply w-full md:shadow-xl md:w-[600px] dark:bg-black;
   }
 </style>
