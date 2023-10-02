@@ -18,12 +18,14 @@
     unknown: null,
   };
 
+  // Remember: we cannot do string interpolation with tw classes
+  // as tailwind compiler won't be able find those classes.
   const alertClassMap: Record<TypeToast, string> = {
     success: 'alert-success',
     error: 'alert-error',
     warning: 'alert-warning',
     info: 'alert-info',
-    unknown: '',
+    unknown: 'alert-uknown',
   };
 
   const icon = iconTypeMap[type];
