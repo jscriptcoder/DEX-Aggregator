@@ -20,6 +20,7 @@ export async function getPrice({ sellToken, buyToken, sellAmount, chainId }: Get
 
   const response = await fetch(`api/0x?${queryParams}`)
 
+  // TODO: handle errors (e.g. Insifficient asset liquidity, etc...)
   if (!response.ok) throw new Error(`Failed to fetch price: ${response.statusText}`)
 
   return response.json()
