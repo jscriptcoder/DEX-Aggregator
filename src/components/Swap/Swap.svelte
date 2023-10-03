@@ -6,13 +6,14 @@
   import { network } from '../../stores/network'
   import { errorToast, infoToast } from '../NotificationToast'
   import { parseUnits, type Chain, formatUnits } from 'viem'
-  import Settings from './Settings.svelte'
+  import Settings, { type SettingItems } from './Settings.svelte'
 
   let tokenFrom: Token
   let amountFrom: bigint
   let tokenTo: Token
-  let amountTo: bigint | null
+  let amountTo: bigint
   let estimatedGas: bigint
+  let settingItems: SettingItems
 
   let displayEstimatedGas: string = ''
   let canTrade: boolean = false
@@ -31,7 +32,7 @@
     canTrade = false
     gettingPrice = true
     displayEstimatedGas = ''
-    amountTo = null
+    amountTo = BigInt(0)
 
     try {
       const priceData = await getPrice({
@@ -74,7 +75,7 @@
   <div class="card-body p-4 md:p-8">
     <div class="flex justify-between">
       <h2 class="card-title">Swap</h2>
-      <Settings />
+      <Settings bind:items={settingItems} />
     </div>
 
     <p>Trade tokens in an instant</p>
