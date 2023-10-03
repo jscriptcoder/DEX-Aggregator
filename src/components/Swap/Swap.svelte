@@ -73,32 +73,34 @@
 
 <div class="Swap card">
   <div class="card-body p-4 md:p-8">
-    <div class="flex justify-between">
-      <h2 class="card-title">Swap</h2>
-      <Settings bind:items={settingItems} />
+    <div class="header">
+      <div class="flex justify-between">
+        <h2 class="card-title">Swap</h2>
+        <Settings bind:items={settingItems} />
+      </div>
+      <p>Trade tokens in an instant</p>
     </div>
 
-    <p>Trade tokens in an instant</p>
+    <div class="body flex flex-col flex-1 justify-between">
+      <div class="space-y-2 md:space-y-4 flex flex-col items-center my-4">
+        <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} disableToken={tokenTo} />
 
-    <div class="space-y-4 flex flex-col items-center my-4">
-      <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} disableToken={tokenTo} />
+        <SwitchToken bind:tokenFrom bind:tokenTo />
 
-      <SwitchToken bind:tokenFrom bind:tokenTo />
+        <TokenAmount
+          bind:token={tokenTo}
+          bind:amount={amountTo}
+          disableToken={tokenFrom}
+          loading={gettingPrice}
+          readonly />
+      </div>
 
-      <TokenAmount
-        bind:token={tokenTo}
-        bind:amount={amountTo}
-        disableToken={tokenFrom}
-        loading={gettingPrice}
-        readonly />
-    </div>
-
-    <div class="text-sm md:text-base">
-      Estimated Gas: {displayEstimatedGas ?? '?'}
-    </div>
-
-    <div class="card-actions">
-      <button disabled={!canTrade} class="btn btn-primary btn-md md:btn-lg w-full" on:click={trade}>Trade</button>
+      <div class="space-y-2 md:space-y-4">
+        <div class="text-sm md:text-base">
+          Estimated Gas: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
+        </div>
+        <button disabled={!canTrade} class="btn btn-primary btn-md md:btn-lg w-full" on:click={trade}>Trade</button>
+      </div>
     </div>
   </div>
 </div>

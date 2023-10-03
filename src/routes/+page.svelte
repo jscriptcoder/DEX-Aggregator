@@ -20,10 +20,10 @@
 
 <style lang="postcss">
   .container {
-    @apply mx-auto h-full;
+    @apply mx-auto h-full flex flex-col;
   }
 
   main {
-    @apply flex justify-center;
+    @apply flex justify-center flex-1;
   }
 </style>
