@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
   export type SettingItems = {
     slippage: number
+    // TODO: Add more settings...
   }
 </script>
 
