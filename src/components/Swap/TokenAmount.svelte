@@ -47,6 +47,7 @@
     disabled={!isTokenSelected}
     on:input={debouncedOnInput}
     bind:this={inputElem} />
+
   {#if loading}
     <Loading text="Getting price…" size="sm" layout="row" />
   {/if}
