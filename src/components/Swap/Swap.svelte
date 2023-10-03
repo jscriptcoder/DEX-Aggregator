@@ -76,7 +76,12 @@
     <div class="space-y-4 flex flex-col items-center my-4">
       <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} disableToken={tokenTo} />
       <SwitchToken bind:tokenFrom bind:tokenTo />
-      <TokenAmount bind:token={tokenTo} bind:amount={amountTo} disableToken={tokenFrom} readonly />
+      <TokenAmount
+        bind:token={tokenTo}
+        bind:amount={amountTo}
+        disableToken={tokenFrom}
+        loading={gettingPrice}
+        readonly />
     </div>
 
     <div class="text-sm md:text-base">

@@ -1,1 +1,7 @@
 @tailwind components;
+
+@layer components {
+  .cover {
+    @apply absolute top-0 left-0 bottom-0 right-0 bg-slate-100/80 dark:bg-slate-900/60;
+  }
+}

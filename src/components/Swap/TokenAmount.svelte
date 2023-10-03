@@ -5,11 +5,13 @@
   import { debounce } from 'debounce'
   import { inputConfig } from '../../app.config'
   import { tick } from 'svelte'
+  import Loading from '../Loading/Loading.svelte'
 
   export let token: Token
   export let amount: bigint
   export let readonly = false
   export let disableToken: Token
+  export let loading = false
 
   let inputElem: HTMLInputElement
 
@@ -45,11 +47,15 @@
     disabled={!isTokenSelected}
     on:input={debouncedOnInput}
     bind:this={inputElem} />
+  {#if loading}
+    <Loading text="Getting price…" size="sm" layout="row" />
+  {/if}
 </div>
 
 <style lang="postcss">
   .TokenAmount {
-    @apply flex 
+    @apply relative
+      flex 
       items-center 
       justify-between 
       outline-none 

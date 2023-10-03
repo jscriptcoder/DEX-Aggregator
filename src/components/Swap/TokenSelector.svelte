@@ -130,7 +130,7 @@
         {#if fetching}
           <Loading text="Loading tokens…" />
         {:else if noTokens}
-          <div class="flex flex-col justify-center items-center w-full space-y-4">
+          <div class="f-center flex-col w-full space-y-4">
             <span>No tokens founds</span>
             <span>¯\_(ツ)_/¯</span>
           </div>
@@ -183,6 +183,6 @@
   }
 
   .token-list {
-    @apply flex h-[320px] p-4;
+    @apply relative flex h-[320px] p-4;
   }
 </style>
