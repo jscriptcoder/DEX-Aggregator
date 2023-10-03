@@ -4,4 +4,8 @@
   .cover {
     @apply absolute top-0 left-0 bottom-0 right-0 bg-slate-100/80 dark:bg-slate-900/60;
   }
+
+  .btn-handy {
+    @apply btn btn-sm btn-circle btn-ghost;
+  }
 }

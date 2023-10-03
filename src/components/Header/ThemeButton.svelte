@@ -27,12 +27,14 @@
   })
 </script>
 
-<button class="md:btn md:btn-sm" on:click={toggleTheme} title="Toggle theme">
-  <div class="h-4 w-4">
-    {#if isDarkTheme}
-      <FaSun />
-    {:else}
-      <FaMoon />
-    {/if}
+<label class="swap swap-rotate">
+  <input type="checkbox" checked={isDarkTheme} on:click={toggleTheme} />
+
+  <div class="swap-on h-5 w-5">
+    <FaSun />
   </div>
-</button>
+
+  <div class="swap-off h-5 w-5">
+    <FaMoon />
+  </div>
+</label>

@@ -116,14 +116,14 @@
   <dialog class="modal modal-bottom md:modal-middle" class:modal-open={modalOpen}>
     <div class="modal-box">
       <div class="header">
-        <div class="w-4">
+        <div class="w-5">
           <FaSearch />
         </div>
         <input
           bind:this={inputElem}
           placeholder="Search token by name, symbol or address"
           on:input={debouncedOnInput} />
-        <button class="btn btn-sm btn-circle btn-ghost" on:click={closeModal}>✕</button>
+        <button class="btn-handy" on:click={closeModal}>✕</button>
       </div>
 
       <div class="token-list">

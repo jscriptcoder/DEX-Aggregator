@@ -9,7 +9,7 @@
     <div class="mask mask-squircle">
       <img src="/dex-logo.png" alt="logo" title="DEX Aggregator" />
     </div>
-    <h1>DEX <span class="hidden md:block">Aggregator</span></h1>
+    <h1>DEX <span class="hidden md:inline">Aggregator</span></h1>
   </div>
 
   <div class="flex items-center space-x-2">
