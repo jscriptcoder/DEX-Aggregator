@@ -20,7 +20,7 @@
 
 <style lang="postcss">
   .container {
-    @apply mx-auto h-full flex flex-col;
+    @apply mx-auto h-full flex flex-col p-4;
   }
 
   main {

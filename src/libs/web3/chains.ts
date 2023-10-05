@@ -7,41 +7,41 @@ const iconChainBaseURL = 'https://icons.llamao.fi/icons/chains'
 const apiBaseDomain = 'api.0x.org'
 
 type ChainMeta = {
-  icon: string
-  api: string
+  iconUrl: string
+  apiBase: string
 }
 
 export const chainMetaMap: Record<number, ChainMeta> = {
   [mainnet.id]: {
-    icon: `${iconChainBaseURL}/rsz_ethereum.jpg`,
-    api: `https://${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_ethereum.jpg`,
+    apiBase: `https://${apiBaseDomain}`,
   },
   [goerli.id]: {
-    icon: `${iconChainBaseURL}/rsz_ethereum.jpg`,
-    api: `https://goerli.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_ethereum.jpg`,
+    apiBase: `https://goerli.${apiBaseDomain}`,
   },
   [optimism.id]: {
-    icon: `${iconChainBaseURL}/rsz_optimism.jpg`,
-    api: `https://optimism.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_optimism.jpg`,
+    apiBase: `https://optimism.${apiBaseDomain}`,
   },
   [arbitrum.id]: {
-    icon: `${iconChainBaseURL}/rsz_arbitrum.jpg`,
-    api: `https://arbitrum.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_arbitrum.jpg`,
+    apiBase: `https://arbitrum.${apiBaseDomain}`,
   },
   [avalanche.id]: {
-    icon: `${iconChainBaseURL}/rsz_avalanche.jpg`,
-    api: `https://avalanche.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_avalanche.jpg`,
+    apiBase: `https://avalanche.${apiBaseDomain}`,
   },
   [polygon.id]: {
-    icon: `${iconChainBaseURL}/rsz_polygon.jpg`,
-    api: `https://polygon.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_polygon.jpg`,
+    apiBase: `https://polygon.${apiBaseDomain}`,
   },
   [base.id]: {
-    icon: `${iconChainBaseURL}/rsz_base.jpg`,
-    api: `https://base.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_base.jpg`,
+    apiBase: `https://base.${apiBaseDomain}`,
   },
   [bsc.id]: {
-    icon: `${iconChainBaseURL}/rsz_bsc.jpg`,
-    api: `https://bsc.${apiBaseDomain}`,
+    iconUrl: `${iconChainBaseURL}/rsz_bsc.jpg`,
+    apiBase: `https://bsc.${apiBaseDomain}`,
   },
 }

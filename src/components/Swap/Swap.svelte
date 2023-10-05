@@ -2,11 +2,11 @@
   import TokenAmount from './TokenAmount.svelte'
   import type { Token } from '../../libs/token/types'
   import SwitchToken from './SwitchToken.svelte'
-  import { getPrice } from '../../libs/token/price'
   import { network } from '../../stores/network'
   import { errorToast, infoToast } from '../NotificationToast'
   import { parseUnits, type Chain, formatUnits } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
+  import { getPrice } from '../../libs/api/0x'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -63,8 +63,14 @@
   async function trade() {
     if (!canTrade) return
 
-    // trading = true
-    infoToast('TODO: implement')
+    trading = true
+
+    try {
+    } catch (err) {
+      console.error(err)
+    } finally {
+      trading = false
+    }
   }
 
   // This function is called everytime one of the dependencies changes

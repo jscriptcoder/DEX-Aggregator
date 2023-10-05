@@ -4,7 +4,7 @@
 
   export let value: Chain
 
-  $: chainIconSrc = value?.id ? chainMetaMap[value.id]?.icon : null
+  $: chainIconSrc = value?.id ? chainMetaMap[value.id]?.iconUrl : null
 </script>
 
 {#if value?.id}
