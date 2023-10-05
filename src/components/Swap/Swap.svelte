@@ -87,7 +87,7 @@
       <p>Trade tokens in an instant</p>
     </div>
 
-    <div class="body flex flex-col flex-1 justify-between">
+    <div class="body flex flex-col flex-1 md:flex-none justify-between">
       <div class="space-y-2 md:space-y-4 flex flex-col items-center my-4">
         <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} disableToken={tokenTo} />
 
@@ -113,6 +113,6 @@
 
 <style lang="postcss">
   .Swap {
-    @apply w-full md:shadow-xl md:w-[600px] dark:bg-black;
+    @apply w-full rounded-none md:rounded-2xl md:shadow-xl md:w-[600px] dark:bg-black;
   }
 </style>
