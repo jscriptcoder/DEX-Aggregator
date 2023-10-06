@@ -3,10 +3,12 @@
   import type { Token } from '../../libs/token/types'
   import SwitchToken from './SwitchToken.svelte'
   import { network } from '../../stores/network'
-  import { errorToast, infoToast } from '../NotificationToast'
+  import { errorToast } from '../NotificationToast'
   import { parseUnits, type Chain, formatUnits } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
-  import { getPrice } from '../../libs/api/0x'
+  import { getPrice, getQuote } from '../../libs/api/0x'
+  import approve from '../../libs/token/approve'
+  import { account } from '../../stores/account'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -61,13 +63,34 @@
   }
 
   async function trade() {
-    if (!canTrade) return
+    if (!$network || !$account || !canTrade) return
 
     trading = true
 
     try {
+      const quotaData = await getQuote({
+        sellToken: tokenFrom.address,
+        buyToken: tokenTo.address,
+        sellAmount: amountTo.toString(),
+        chainId: $network.id.toString(),
+        slippagePercentage: settingItems.slippage.toString(),
+      })
+
+      console.log('Quote data:', quotaData)
+
+      // Approve the 0x contract to spend the token
+      const txHash = await approve({
+        account: $account.address,
+        address: tokenFrom.address,
+        spender: quotaData.allowanceTarget,
+        amount: amountTo,
+        chainId: $network.id,
+      })
+
+      console.log('Approve tx hash:', txHash)
     } catch (err) {
       console.error(err)
+      errorToast('There was an error trading the tokens.')
     } finally {
       trading = false
     }

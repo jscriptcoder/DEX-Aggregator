@@ -11,6 +11,9 @@ export function startWatching() {
 
   unwatchNetwork = watchNetwork(async (networkResult) => {
     console.log('Network change:', networkResult.chain)
+
+    // TODO: check if network is supported
+    
     network.set(networkResult.chain)
   })
 

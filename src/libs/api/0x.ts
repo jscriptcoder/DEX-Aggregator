@@ -33,10 +33,10 @@ export function getPrice({ sellToken, buyToken, sellAmount, chainId }: GetPriceA
 export async function getQuote({ sellToken, buyToken, sellAmount, slippagePercentage, chainId }: GetQuoteArgs): Promise<QuoteResponseData> {
   return OxApi({
     apiCall: 'quote',
-    sellToken,
+    chainId,
     buyToken,
+    sellToken,
     sellAmount,
     slippagePercentage,
-    chainId,
   })
 }

@@ -27,5 +27,5 @@ export type PriceResponseData = {
 }
 
 export type QuoteResponseData = {
-  // TODO
+  allowanceTarget: Address
 }
