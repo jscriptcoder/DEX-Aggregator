@@ -9,6 +9,7 @@
   import { getPrice, getQuote } from '../../libs/api/0x'
   import approve from '../../libs/token/approve'
   import { account } from '../../stores/account'
+  import Loading from '../Loading/Loading.svelte'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -63,7 +64,7 @@
   }
 
   async function trade() {
-    if (!$network || !$account || !canTrade) return
+    if (!$network || !$account || !$account.address || !canTrade) return
 
     trading = true
 
@@ -82,8 +83,8 @@
       const txHash = await approve({
         account: $account.address,
         address: tokenFrom.address,
-        spender: quotaData.allowanceTarget,
-        amount: amountTo,
+        spender: quotaData.allowanceTarget, // contains the address of the 0x contract
+        amount: amountFrom,
         chainId: $network.id,
       })
 
@@ -128,7 +129,16 @@
         <div class="text-sm md:text-base">
           Estimated Gas: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
         </div>
-        <button disabled={!canTrade} class="btn btn-primary btn-md md:btn-lg w-full" on:click={trade}>Trade</button>
+        <button
+          disabled={!canTrade || trading}
+          class="btn btn-primary btn-md w-full relative md:btn-lg"
+          on:click={trade}>
+          {#if trading}
+            <Loading text="Trading…" size="sm" layout="row" />
+          {:else}
+            Trade
+          {/if}
+        </button>
       </div>
     </div>
   </div>
