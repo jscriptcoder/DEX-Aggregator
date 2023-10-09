@@ -1,5 +1,5 @@
 import { apiConfig } from '../../app.config'
-import type { FetchResponseData } from './types'
+import type { FetchResponseData } from '../api/types'
 
 let cachedData: FetchResponseData | undefined
 
