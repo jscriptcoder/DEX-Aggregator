@@ -13,7 +13,7 @@ export function startWatching() {
     console.log('Network change:', networkResult.chain)
 
     // TODO: check if network is supported
-    
+
     network.set(networkResult.chain)
   })
 

@@ -2,6 +2,7 @@ import { w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { configureChains, createConfig } from '@wagmi/core'
 import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public'
 import { chains } from './chains'
+import { NotSupportedChainError } from '../error'
 
 const projectId = PUBLIC_WALLET_CONNECT_PROJECT_ID
 
@@ -19,6 +20,6 @@ export function isChainSupported(chainId: number | string) {
 
 export function checkSupportedChain(chainId: number) {
   if (!isChainSupported(chainId)) {
-    throw new Error('Chain is not supported')
+    throw new NotSupportedChainError()
   }
 }

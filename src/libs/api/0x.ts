@@ -1,6 +1,5 @@
 import type { GetPriceArgs, GetQuoteArgs, OxApiArgs, PriceResponseData, QuoteResponseData } from './types'
 
-
 async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chainId }: OxApiArgs) {
   if (!apiCall || !sellToken || !buyToken || !sellAmount || !chainId) throw new Error('Missing arguments')
 
@@ -30,7 +29,13 @@ export function getPrice({ sellToken, buyToken, sellAmount, chainId }: GetPriceA
   })
 }
 
-export async function getQuote({ sellToken, buyToken, sellAmount, slippagePercentage, chainId }: GetQuoteArgs): Promise<QuoteResponseData> {
+export async function getQuote({
+  sellToken,
+  buyToken,
+  sellAmount,
+  slippagePercentage,
+  chainId,
+}: GetQuoteArgs): Promise<QuoteResponseData> {
   return OxApi({
     apiCall: 'quote',
     chainId,
