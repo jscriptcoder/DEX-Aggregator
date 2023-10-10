@@ -79,16 +79,19 @@
 
       console.log('Quote data:', quotaData)
 
-      // Approve the 0x contract to spend the token
-      const txHash = await approveAllowance({
-        account: $account.address,
-        address: tokenFrom.address,
-        spender: quotaData.allowanceTarget, // contains the address of the 0x contract
-        amount: amountFrom,
-        chainId: $network.id,
-      })
+      // If token has address then it's an ERC20 token
+      if (tokenFrom.address) {
+        // Approve the 0x contract to spend the token
+        const txHash = await approveAllowance({
+          account: $account.address,
+          address: tokenFrom.address,
+          spender: quotaData.allowanceTarget, // contains the address of the 0x contract
+          amount: amountFrom,
+          chainId: $network.id,
+        })
 
-      console.log('Approve tx hash:', txHash)
+        console.log('Approve tx hash:', txHash)
+      }
     } catch (err) {
       console.error(err)
       errorToast('There was an error trading the tokens.')

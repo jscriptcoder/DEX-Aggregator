@@ -1,4 +1,3 @@
-import { zeroAddress } from 'viem'
 import type { GetPriceArgs, GetQuoteArgs, OxApiArgs, PriceResponseData, QuoteResponseData } from './types'
 
 async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chainId }: OxApiArgs) {
@@ -7,9 +6,9 @@ async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chainId }: OxAp
   const queryParams = new URLSearchParams({
     apiCall,
 
-    // For Ether, which uses the zero address, we use the symbol instead of the address
-    sellToken: sellToken === zeroAddress ? 'ETH' : sellToken,
-    
+    // If no sellAddress is passed, we asume it's ETH
+    sellToken: sellToken ?? 'ETH',
+
     buyToken,
     sellAmount,
     chainId,

@@ -9,7 +9,7 @@
   import fetchAllTokens from '../../libs/token/fetchAllTokens'
   import type { Token } from '../../libs/token/types'
   import Loading from '../Loading'
-  import { ethTokenConfig, inputConfig, tokenSelectorConfig } from '../../app.config'
+  import { etherToken, inputConfig, tokenSelectorConfig } from '../../app.config'
   import { mainnet } from 'viem/chains'
 
   export let value: Token
@@ -81,12 +81,8 @@
 
       // We want to add ETH in our list of tokens as the first token
       tokens.unshift({
+        ...etherToken,
         chainId: mainnet.id, // TODO: other chains?
-        address: ethTokenConfig.address,
-        name: ethTokenConfig.name,
-        symbol: ethTokenConfig.symbol,
-        decimals: ethTokenConfig.decimals,
-        logoURI: ethTokenConfig.logoURI,
       })
 
       // Creates a map to quickly look up tokens based
@@ -95,7 +91,7 @@
       indexTokenMap = tokens.reduce((acc, token) => {
         const name = token.name.toLowerCase()
         const symbol = token.symbol.toLowerCase()
-        const address = token.address.toLowerCase()
+        const address = token?.address?.toLowerCase()
         const index = `${name}|${symbol}|${address}`
 
         acc[index] = token

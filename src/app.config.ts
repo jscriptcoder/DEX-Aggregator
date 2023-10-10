@@ -1,5 +1,3 @@
-import { zeroAddress } from "viem"
-
 export const apiConfig = {
   tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
   // tokensUrl: 'https://erc20.cmc.eth.link/',
@@ -17,8 +15,7 @@ export const notificarionConfig = {
   duration: 5000,
 }
 
-export const ethTokenConfig = {
-  address: zeroAddress,
+export const etherToken = {
   name: 'Ether',
   symbol: 'ETH',
   decimals: 18,
