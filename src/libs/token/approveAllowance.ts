@@ -11,7 +11,7 @@ type ApproveArgs = {
   chainId?: number
 }
 
-export default async function approve({ account, address, spender, amount, chainId }: ApproveArgs): Promise<Hash> {
+export default async function approveAllowance({ account, address, spender, amount, chainId }: ApproveArgs): Promise<Hash> {
   const publicClient = getPublicClient(chainId)
 
   // Let's first validate the write call by simulating it

@@ -1,26 +1,13 @@
 <script lang="ts">
   import { network } from '../../stores/network'
   import { account } from '../../stores/account'
-  import { UserRejectedRequestError, type Chain } from 'viem'
-  import { switchNetwork } from '@wagmi/core'
-  import ChainItem from './ChainItem.svelte'
+  import { mainnet } from '@wagmi/core'
+  import ChainItem from '../ChainItem'
   import { chains } from '../../libs/web3/chains'
-  import { errorToast, warningToast } from '../NotificationToast'
+  import selectNetwork from '../utils/selectNetwork'
+  import FaCheck from 'svelte-icons/fa/FaCheck.svelte'
 
   $: isConnected = Boolean($account?.isConnected)
-
-  async function selectNetwork(newNetwork: Chain) {
-    try {
-      await switchNetwork({ chainId: newNetwork.id })
-    } catch (err) {
-      console.error(err)
-      if (err instanceof UserRejectedRequestError) {
-        warningToast('User cancelled switching network.')
-      } else {
-        errorToast('Failed to switch network.')
-      }
-    }
-  }
 </script>
 
 <div class="dropdown hidden md:block">
@@ -29,13 +16,21 @@
       <ChainItem value={$network} />
     {/if}
   </button>
-  <ul tabindex="-1" class="dropdown-content menu">
+  <ul tabindex="-1" class="dropdown-content menu w-[250px]">
     {#each chains as chain (chain.id)}
       <li>
+        <!-- TODO: support multiple chains -->
         <button
-          class="btn btn-ghost w-full justify-start flex items-center space-x-2"
+          disabled={chain.id !== mainnet.id}
+          class="btn btn-ghost w-full justify-between flex items-center space-x-2"
           on:click={() => selectNetwork(chain)}>
           <ChainItem value={chain} />
+
+          {#if $network?.id === chain.id}
+            <div class="w-4 h-4 text-green-600">
+              <FaCheck />
+            </div>
+          {/if}
         </button>
       </li>
     {/each}

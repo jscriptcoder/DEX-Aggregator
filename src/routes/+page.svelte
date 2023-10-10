@@ -5,6 +5,7 @@
   import Swap from '../components/Swap'
   import { startWatching } from '../libs/web3/connection'
   import NotificationToast from '../components/NotificationToast'
+  import SupportedChainModal from '../components/SupportedChainModal'
 
   onMount(startWatching)
 </script>
@@ -17,6 +18,8 @@
 </div>
 
 <NotificationToast />
+
+<SupportedChainModal />
 
 <style lang="postcss">
   .container {

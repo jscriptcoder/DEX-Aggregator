@@ -7,7 +7,7 @@
   import { parseUnits, type Chain, formatUnits } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
   import { getPrice, getQuote } from '../../libs/api/0x'
-  import approve from '../../libs/token/approve'
+  import approveAllowance from '../../libs/token/approveAllowance'
   import { account } from '../../stores/account'
   import Loading from '../Loading/Loading.svelte'
 
@@ -80,7 +80,7 @@
       console.log('Quote data:', quotaData)
 
       // Approve the 0x contract to spend the token
-      const txHash = await approve({
+      const txHash = await approveAllowance({
         account: $account.address,
         address: tokenFrom.address,
         spender: quotaData.allowanceTarget, // contains the address of the 0x contract
