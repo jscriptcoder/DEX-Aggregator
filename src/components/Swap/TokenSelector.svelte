@@ -9,7 +9,8 @@
   import fetchAllTokens from '../../libs/token/fetchAllTokens'
   import type { Token } from '../../libs/token/types'
   import Loading from '../Loading'
-  import { inputConfig, tokenSelectorConfig } from '../../app.config'
+  import { ethTokenConfig, inputConfig, tokenSelectorConfig } from '../../app.config'
+  import { mainnet } from 'viem/chains'
 
   export let value: Token
   export let onSelect: OnTokenSelect
@@ -75,7 +76,18 @@
     try {
       fetching = true
       const responseData = await fetchAllTokens()
+
       tokens = filteredTokens = responseData.tokens
+
+      // We want to add ETH in our list of tokens as the first token
+      tokens.unshift({
+        chainId: mainnet.id, // TODO: other chains?
+        address: ethTokenConfig.address,
+        name: ethTokenConfig.name,
+        symbol: ethTokenConfig.symbol,
+        decimals: ethTokenConfig.decimals,
+        logoURI: ethTokenConfig.logoURI,
+      })
 
       // Creates a map to quickly look up tokens based
       // on their name, symbol or address, by combining
@@ -103,7 +115,7 @@
   <button class="btn dark:btn-neutral btn-sm md:btn-md md:min-w-[140px]" on:click={openModal}>
     {#if value}
       <div class="flex items-center space-x-2">
-        <div class="avatar">
+        <div class="avatar w-6">
           <img src={value.logoURI} alt={value.name} />
         </div>
         <span class="token-label">{value.symbol}</span>
@@ -142,7 +154,7 @@
                   disabled={token.address === disableValue?.address}
                   class="btn btn-ghost w-full justify-start flex items-center space-x-2"
                   on:click={() => selectToken(token)}>
-                  <div class="avatar w-[25px]">
+                  <div class="avatar w-6">
                     <img src={token.logoURI} alt={token.name} />
                   </div>
                   <div class="flex flex-col items-start">
