@@ -15,9 +15,6 @@
       <p>Please, select one of our supported chain:</p>
     </div>
 
-    <!-- <div class="chain-list">
-
-    </div> -->
     <ul tabindex="-1">
       {#each chains as chain (chain.id)}
         <li>

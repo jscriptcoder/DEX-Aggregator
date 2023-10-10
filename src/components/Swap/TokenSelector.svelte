@@ -6,7 +6,7 @@
   import { onMount } from 'svelte'
   import debounce from 'debounce'
   import FaSearch from 'svelte-icons/fa/FaSearch.svelte'
-  import fetchTokens from '../../libs/token/fetch'
+  import fetchAllTokens from '../../libs/token/fetchAllTokens'
   import type { Token } from '../../libs/token/types'
   import Loading from '../Loading'
   import { inputConfig, tokenSelectorConfig } from '../../app.config'
@@ -74,7 +74,7 @@
   onMount(async () => {
     try {
       fetching = true
-      const responseData = await fetchTokens()
+      const responseData = await fetchAllTokens()
       tokens = filteredTokens = responseData.tokens
 
       // Creates a map to quickly look up tokens based

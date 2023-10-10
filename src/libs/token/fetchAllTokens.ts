@@ -3,7 +3,7 @@ import type { FetchResponseData } from '../api/types'
 
 let cachedData: FetchResponseData | undefined
 
-export default async function fetchTokens(): Promise<FetchResponseData> {
+export default async function fetchAllTokens(): Promise<FetchResponseData> {
   if (cachedData) return cachedData
 
   const response = await fetch(apiConfig.tokensUrl)
