@@ -1,6 +1,6 @@
-import { switchNetwork } from "@wagmi/core"
-import { UserRejectedRequestError, type Chain } from "viem"
-import { errorToast, warningToast } from "../NotificationToast"
+import { switchNetwork } from '@wagmi/core'
+import { UserRejectedRequestError, type Chain } from 'viem'
+import { errorToast, warningToast } from '../NotificationToast'
 
 export default async function selectNetwork(newNetwork: Chain) {
   try {

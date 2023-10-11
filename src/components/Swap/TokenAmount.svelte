@@ -68,7 +68,7 @@
   const debouncedOnInput = debounce(onInput, inputConfig.debounceWait)
 </script>
 
-<div class="TokenAmount">
+<div class="TokenAmount" class:error={insufficientBalance}>
   <TokenSelector value={token} onSelect={onTokenSelect} disableValue={disableToken} />
   <div class="flex flex-col relative">
     <input
@@ -111,6 +111,10 @@
       md:gap-4
       md:p-6
       md:hover:shadow-[0_0_0_2px_#6419e6];
+  }
+
+  .TokenAmount.error {
+    @apply !shadow-[0_0_0_2px_#f87171];
   }
 
   input {
