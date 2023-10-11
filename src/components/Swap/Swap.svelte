@@ -39,10 +39,10 @@
 
     try {
       const priceData = await getPrice({
+        chain,
         sellToken: from.address,
         buyToken: to.address,
         sellAmount: amount.toString(),
-        chainId: chain.id.toString(),
       })
 
       console.log('Price data:', priceData)
@@ -70,10 +70,10 @@
 
     try {
       const quotaData = await getQuote({
+        chain: $network,
         sellToken: tokenFrom.address,
         buyToken: tokenTo.address,
         sellAmount: amountTo.toString(),
-        chainId: $network.id.toString(),
         slippagePercentage: settingItems.slippage.toString(),
       })
 

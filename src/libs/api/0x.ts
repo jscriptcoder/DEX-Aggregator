@@ -1,17 +1,17 @@
 import type { GetPriceArgs, GetQuoteArgs, OxApiArgs, PriceResponseData, QuoteResponseData } from './types'
 
-async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chainId }: OxApiArgs) {
-  if (!apiCall || !sellToken || !buyToken || !sellAmount || !chainId) throw new Error('Missing arguments')
+async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chain }: OxApiArgs) {
+  if (!apiCall || !sellToken || !buyToken || !sellAmount || !chain) throw new Error('Missing arguments')
 
   const queryParams = new URLSearchParams({
     apiCall,
 
-    // If no sellAddress is passed, we asume it's ETH
-    sellToken: sellToken ?? 'ETH',
+    // If no sellAddress is passed, we asume it's the native token
+    sellToken: sellToken ?? chain.nativeCurrency.symbol,
 
     buyToken,
     sellAmount,
-    chainId,
+    chainId: chain.id.toString(),
   })
 
   const response = await fetch(`api/0x?${queryParams}`)
@@ -22,29 +22,29 @@ async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chainId }: OxAp
   return response.json()
 }
 
-export function getPrice({ sellToken, buyToken, sellAmount, chainId }: GetPriceArgs): Promise<PriceResponseData> {
+export function getPrice({ sellToken, buyToken, sellAmount, chain }: GetPriceArgs): Promise<PriceResponseData> {
   return OxApi({
     apiCall: 'price',
     sellToken,
     buyToken,
     sellAmount,
-    chainId,
+    chain,
   })
 }
 
 export async function getQuote({
+  chain,
   sellToken,
   buyToken,
   sellAmount,
   slippagePercentage,
-  chainId,
 }: GetQuoteArgs): Promise<QuoteResponseData> {
   return OxApi({
     apiCall: 'quote',
-    chainId,
     buyToken,
     sellToken,
     sellAmount,
     slippagePercentage,
+    chain,
   })
 }

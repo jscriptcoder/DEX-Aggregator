@@ -1,9 +1,9 @@
-import type { Address } from 'viem'
+import type { Address, Chain } from 'viem'
 import type { Token } from '../token/types'
 
 export interface BaseArgs {
+  chain: Chain
   sellAmount: string
-  chainId: string
   sellToken?: Address
   buyToken?: string
   slippagePercentage?: string
