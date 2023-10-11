@@ -24,6 +24,7 @@ export type FetchResponseData = {
 export type PriceResponseData = {
   price: string
   estimatedGas: string
+  buyAmount: string
 }
 
 export type QuoteResponseData = {

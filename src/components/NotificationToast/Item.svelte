@@ -35,11 +35,11 @@
 <div role="alert" class={alertClasses}>
   <div class="flex items-center space-x-2">
     {#if icon}
-      <div class="w-6">
+      <div class="w-5">
         <svelte:component this={icon} />
       </div>
     {/if}
-    <span>{message}</span>
+    <span class="flex-1">{message}</span>
   </div>
   <button on:click={close}>✕</button>
 </div>

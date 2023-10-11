@@ -4,7 +4,7 @@
   import SwitchToken from './SwitchToken.svelte'
   import { network } from '../../stores/network'
   import { errorToast } from '../NotificationToast'
-  import { parseUnits, type Chain, formatUnits } from 'viem'
+  import { type Chain, formatUnits } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
   import { getPrice, getQuote } from '../../libs/api/0x'
   import approveAllowance from '../../libs/token/approveAllowance'
@@ -47,7 +47,7 @@
 
       console.log('Price data:', priceData)
 
-      amountTo = parseUnits(priceData.price, tokenTo.decimals)
+      amountTo = BigInt(priceData.buyAmount)
 
       // Work out the estimated gas in the chain's native currency
       const { nativeCurrency } = chain
@@ -57,7 +57,16 @@
       canTrade = true
     } catch (err) {
       console.error(err)
-      errorToast('There was an error fetching the price.')
+
+      let reason = 'Unknown'
+
+      if (err instanceof Error) {
+        reason = err.message
+      } else if (typeof err === 'string') {
+        reason = err
+      }
+
+      errorToast(`There was an error fetching the price. ${reason}`)
     } finally {
       gettingPrice = false
     }
@@ -94,7 +103,18 @@
       }
     } catch (err) {
       console.error(err)
-      errorToast('There was an error trading the tokens.')
+
+      console.error(err)
+
+      let reason = 'Unknown'
+
+      if (err instanceof Error) {
+        reason = err.message
+      } else if (typeof err === 'string') {
+        reason = err
+      }
+
+      errorToast(`There was an error trading the tokens. ${reason}`)
     } finally {
       trading = false
     }

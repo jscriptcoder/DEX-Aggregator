@@ -1,7 +1,7 @@
 import type { GetPriceArgs, GetQuoteArgs, OxApiArgs, PriceResponseData, QuoteResponseData } from './types'
 
 async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chain }: OxApiArgs) {
-  if (!apiCall || !sellToken || !buyToken || !sellAmount || !chain) throw new Error('Missing arguments')
+  if (!apiCall || !buyToken || !sellAmount || !chain) throw new Error('Missing arguments')
 
   const queryParams = new URLSearchParams({
     apiCall,
