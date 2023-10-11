@@ -3,14 +3,15 @@
 </script>
 
 <script lang="ts">
-  import { onMount } from 'svelte'
   import debounce from 'debounce'
   import FaSearch from 'svelte-icons/fa/FaSearch.svelte'
   import fetchAllTokens from '../../libs/token/fetchAllTokens'
   import type { Token } from '../../libs/token/types'
   import Loading from '../Loading'
-  import { etherToken, inputConfig, tokenSelectorConfig } from '../../app.config'
-  import { mainnet } from 'viem/chains'
+  import { tokenLogo, inputConfig, tokenSelectorConfig } from '../../app.config'
+  import { network } from '../../stores/network'
+  import TokenItem from './TokenItem.svelte'
+  import type { Chain } from 'viem'
 
   export let value: Token
   export let onSelect: OnTokenSelect
@@ -72,18 +73,26 @@
     closeModal()
   }
 
-  onMount(async () => {
+  async function fetchTokens(chain?: Chain) {
     try {
       fetching = true
       const responseData = await fetchAllTokens()
 
-      tokens = filteredTokens = responseData.tokens
+      // If we are connected to a chan, we only want to display the tokens
+      // that are available on that chain
+      tokens = filteredTokens = chain
+        ? responseData.tokens.filter((token) => token.chainId === chain.id)
+        : responseData.tokens
 
-      // We want to add ETH in our list of tokens as the first token
-      tokens.unshift({
-        ...etherToken,
-        chainId: mainnet.id, // TODO: other chains?
-      })
+      if (chain) {
+        // We want to add the native currency to the list as the first token
+        const { nativeCurrency } = chain
+        tokens.unshift({
+          ...nativeCurrency,
+          chainId: chain.id,
+          logoURI: tokenLogo[nativeCurrency.symbol],
+        })
+      }
 
       // Creates a map to quickly look up tokens based
       // on their name, symbol or address, by combining
@@ -104,7 +113,12 @@
     } finally {
       fetching = false
     }
-  })
+  }
+
+  // We want to fetch the tokens supported by the current network. Currently
+  // we only have one source, but we might add more in the future that depends
+  // on the network, otherwise we can run this logic when the component is mounted
+  $: fetchTokens($network)
 </script>
 
 <div class="TokenSelector">
@@ -117,7 +131,10 @@
         <span class="token-label">{value.symbol}</span>
       </div>
     {:else}
-      <span class="token-label capitalize">Select token</span>
+      <span class="token-label capitalize">
+        <span class="hidden md:inline">Select</span>
+        <span>Token</span>
+      </span>
     {/if}
   </button>
 
@@ -139,26 +156,13 @@
           <Loading text="Loading tokens…" />
         {:else if noTokens}
           <div class="f-center flex-col w-full space-y-4">
-            <span>No tokens founds</span>
+            <span>No tokens founds {$network ? `on ${$network?.name}` : ''}</span>
             <span>¯\_(ツ)_/¯</span>
           </div>
         {:else}
           <ul class="w-full h-full overflow-auto space-y-2">
             {#each displayTokens as token (token.address)}
-              <li>
-                <button
-                  disabled={token.address === disableValue?.address}
-                  class="btn btn-ghost w-full justify-start flex items-center space-x-2"
-                  on:click={() => selectToken(token)}>
-                  <div class="avatar w-6">
-                    <img src={token.logoURI} alt={token.name} />
-                  </div>
-                  <div class="flex flex-col items-start">
-                    <span class="capitalize">{token.name}</span>
-                    <span class="text-[10px] uppercase">{token.symbol}</span>
-                  </div>
-                </button>
-              </li>
+              <TokenItem value={token} onSelect={selectToken} disabled={token.symbol === disableValue?.symbol} />
             {/each}
 
             {#if isMore}

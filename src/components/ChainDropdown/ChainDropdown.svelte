@@ -1,7 +1,6 @@
 <script lang="ts">
   import { network } from '../../stores/network'
   import { account } from '../../stores/account'
-  import { mainnet } from '@wagmi/core'
   import ChainItem from '../ChainItem'
   import { chains } from '../../libs/web3/chains'
   import selectNetwork from '../utils/selectNetwork'
@@ -21,7 +20,6 @@
       <li>
         <!-- TODO: support multiple chains -->
         <button
-          disabled={chain.id !== mainnet.id}
           class="btn btn-ghost w-full justify-between flex items-center space-x-2"
           on:click={() => selectNetwork(chain)}>
           <ChainItem value={chain} />

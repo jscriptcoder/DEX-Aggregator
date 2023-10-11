@@ -15,9 +15,7 @@ export const notificarionConfig = {
   duration: 5000,
 }
 
-export const etherToken = {
-  name: 'Ether',
-  symbol: 'ETH',
-  decimals: 18,
-  logoURI: 'https://etherscan.io/images/ethereum-icon.png',
+export const tokenLogo: Record<string, string> = {
+  ETH: 'https://cryptologos.cc/logos/ethereum-eth-logo.svg',
+  MATIC: 'https://cryptologos.cc/logos/polygon-matic-logo.svg',
 }

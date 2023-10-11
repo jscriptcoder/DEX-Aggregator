@@ -1,11 +1,11 @@
 <script>
-  import { mainnet } from 'viem/chains'
   import { chains } from '../../libs/web3/chains'
   import ChainItem from '../ChainItem'
   import selectNetwork from '../utils/selectNetwork'
   import { network } from '../../stores/network'
+  import { isChainSupported } from '../../libs/web3/wagmi'
 
-  $: showDiablog = $network && $network.id !== mainnet.id
+  $: showDiablog = $network ? !isChainSupported($network.id) : false
 </script>
 
 <dialog class="modal modal-bottom md:modal-middle" class:modal-open={showDiablog}>
@@ -19,7 +19,7 @@
       {#each chains as chain (chain.id)}
         <li>
           <!-- TODO: support multiple chains -->
-          <button disabled={chain.id !== mainnet.id} class="btn btn-ghost" on:click={() => selectNetwork(chain)}>
+          <button class="btn btn-ghost" on:click={() => selectNetwork(chain)}>
             <ChainItem value={chain} layout="column" iconSize="large" />
           </button>
         </li>
