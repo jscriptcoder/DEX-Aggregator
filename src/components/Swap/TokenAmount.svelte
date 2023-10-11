@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatUnits, parseUnits } from 'viem'
+  import { formatUnits, parseUnits, type Address } from 'viem'
   import type { Token } from '../../libs/token/types'
   import TokenSelector from './TokenSelector.svelte'
   import { debounce } from 'debounce'
@@ -11,6 +11,7 @@
   import { account } from '../../stores/account'
   import { network } from '../../stores/network'
   import { NoAccountAddressError, NotConnectedError } from '../../libs/error'
+  import type { FetchBalanceResult } from '@wagmi/core'
 
   export let token: Token
   export let amount: bigint
@@ -20,9 +21,11 @@
 
   let inputElem: HTMLInputElement
   let insufficientBalance = false
+  let tokenBalance: FetchBalanceResult
 
   $: value = amount ? formatUnits(amount, token.decimals) : ''
   $: isTokenSelected = Boolean(token)
+  $: balance = tokenBalance ? `${tokenBalance.formatted} ${tokenBalance.symbol}` : ''
 
   function onTokenSelect(_token: Token) {
     token = _token
@@ -39,16 +42,22 @@
     insufficientBalance = false
 
     // Do we have enough balance to cover the amount?
-    try {
-      const balanceResult = await getBalance({
-        token: token.address,
-        address: $account.address,
-        chainId: $network?.id,
-      })
+    if (amount > tokenBalance.value) {
+      insufficientBalance = true
+    }
+  }
 
-      if (amount > balanceResult.value) {
-        insufficientBalance = true
-      }
+  const debouncedOnInput = debounce(onInput, inputConfig.debounceWait)
+
+  async function fetchBalance(token?: Token, chainId?: number, address?: Address) {
+    if (!token || !chainId || !address) return
+
+    try {
+      tokenBalance = await getBalance({
+        address,
+        chainId,
+        token: token?.address,
+      })
     } catch (err) {
       console.error(err)
 
@@ -65,12 +74,16 @@
     }
   }
 
-  const debouncedOnInput = debounce(onInput, inputConfig.debounceWait)
+  $: fetchBalance(token, $network?.id, $account?.address)
 </script>
 
 <div class="TokenAmount" class:error={insufficientBalance}>
   <TokenSelector value={token} onSelect={onTokenSelect} disableValue={disableToken} />
   <div class="flex flex-col relative">
+    {#if balance}
+      <div class="balance">Balance: {balance}</div>
+    {/if}
+
     <input
       type="number"
       placeholder="0.0"
@@ -96,6 +109,13 @@
 </div>
 
 <style lang="postcss">
+  .balance {
+    @apply absolute 
+      text-sm 
+      top-[-1rem] 
+      right-0;
+  }
+
   .TokenAmount {
     @apply relative
       flex 
@@ -132,6 +152,7 @@
   [role='alert'] {
     @apply absolute 
       flex 
+      text-sm 
       items-center 
       space-x-2 
       text-red-400 
