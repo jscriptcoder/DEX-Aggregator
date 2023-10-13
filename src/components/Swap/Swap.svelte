@@ -3,8 +3,7 @@
   import type { Token } from '../../libs/token/types'
   import SwitchToken from './SwitchToken.svelte'
   import { network } from '../../stores/network'
-  import { errorToast } from '../NotificationToast'
-  import { type Chain, formatUnits, type SendTransactionParameters } from 'viem'
+  import { type Chain, formatUnits } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
   import { getPrice, getQuote } from '../../libs/api/0x'
   import approveAllowance from '../../libs/token/approveAllowance'
@@ -62,7 +61,7 @@
       hasPrice = true
     } catch (err) {
       console.error(err)
-      notifyError(err, 'There was an error fetching the price')
+      notifyError(err, 'There was an error fetching the price.')
     } finally {
       gettingPrice = false
     }
@@ -110,7 +109,7 @@
       console.log('Swap tx hash:', swapTxHash)
     } catch (err) {
       console.error(err)
-      notifyError(err, 'There was an error trading the tokens')
+      notifyError(err, 'There was an error trading the tokens.')
     } finally {
       trading = false
     }

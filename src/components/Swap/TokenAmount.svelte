@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatUnits, parseUnits, type Address } from 'viem'
+  import { formatUnits, parseUnits, type Address, zeroAddress } from 'viem'
   import type { Token } from '../../libs/token/types'
   import TokenSelector from './TokenSelector.svelte'
   import { debounce } from 'debounce'
@@ -13,6 +13,7 @@
   import type { FetchBalanceResult } from '@wagmi/core'
   import { truncateString } from '../../libs/utils/truncateString'
   import notifyError from '../utils/notifyError'
+  import AddToken from '../AddToken'
 
   export let token: Token
   export let amount: bigint
@@ -31,6 +32,9 @@
   $: balance = tokenBalanceResult
     ? `${truncateString(tokenBalanceResult.formatted, 8)} ${tokenBalanceResult.symbol}`
     : ''
+
+  // We are dealing with ERC20 tokens if there is address and it's not the zero address
+  $: isERC20 = token?.address && token.address !== zeroAddress
 
   function onTokenSelect(_token: Token) {
     token = _token
@@ -79,7 +83,12 @@
   <TokenSelector value={token} onSelect={onTokenSelect} disableValue={disableToken} />
   <div class="flex flex-col relative">
     {#if balance}
-      <div class="balance">Balance: {balance}</div>
+      <div class="balance">
+        {#if isERC20}
+          <AddToken />
+        {/if}
+        <span>Balance: {balance}</span>
+      </div>
     {/if}
 
     <input
@@ -111,7 +120,10 @@
     @apply absolute 
       text-sm 
       top-[-1rem] 
-      right-0;
+      right-0
+      flex
+      items-center
+      space-x-2;
   }
 
   .TokenAmount {

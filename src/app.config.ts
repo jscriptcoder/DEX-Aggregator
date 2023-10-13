@@ -1,6 +1,7 @@
 export const apiConfig = {
-  tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
+  // tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
   // tokensUrl: 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json',
+  tokensUrl: 'https://static.optimism.io/optimism.tokenlist.json',
 }
 
 export const inputConfig = {
