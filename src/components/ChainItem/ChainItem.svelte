@@ -1,13 +1,14 @@
 <script lang="ts">
   import type { Chain } from 'viem'
   import { chainMetaMap } from '../../libs/web3/chains'
+  import classNames from '../../libs/utils/classNames'
 
   export let value: Chain
   export let layout: 'row' | 'column' = 'row'
   export let iconSize: 'base' | 'large' = 'base'
 
-  const classes = ['Chain', layout === 'column' ? 'flex-col justify-center' : 'flex-row justify-start'].join(' ')
-  const iconSizeClass = ['rounded', iconSize === 'base' ? 'w-6' : 'w-8'].join(' ')
+  const classes = classNames('Chain', layout === 'column' ? 'flex-col justify-center' : 'flex-row justify-start')
+  const iconSizeClass = classNames('rounded', iconSize === 'base' ? 'w-6' : 'w-8')
 
   $: chainIconSrc = value?.id ? chainMetaMap[value.id]?.iconUrl : null
 </script>

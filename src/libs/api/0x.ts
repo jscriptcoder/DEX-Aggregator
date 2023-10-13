@@ -1,3 +1,4 @@
+import getError from '../utils/getError'
 import type { GetPriceArgs, GetQuoteArgs, OxApiArgs, PriceResponseData, QuoteResponseData } from './types'
 
 async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chain }: OxApiArgs) {
@@ -17,7 +18,11 @@ async function OxApi({ apiCall, sellToken, buyToken, sellAmount, chain }: OxApiA
   const response = await fetch(`api/0x?${queryParams}`)
 
   // TODO: handle errors (e.g. Insifficient asset liquidity, etc...)
-  if (!response.ok) throw new Error(`Failed to request: ${response.statusText}`)
+  // if (!response.ok) throw new Error(`Failed to request: ${response.statusText}`)
+  if (!response.ok) {
+    const error = await getError(response)
+    throw error
+  }
 
   return response.json()
 }

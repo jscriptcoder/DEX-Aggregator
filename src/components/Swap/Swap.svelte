@@ -104,17 +104,16 @@
     } catch (err) {
       console.error(err)
 
-      console.error(err)
-
-      let reason = 'Unknown'
-
       if (err instanceof Error) {
-        reason = err.message
+        errorToast(err.message)
+      } else if (err && typeof err === 'object' && 'validationErrors' in err && Array.isArray(err.validationErrors)) {
+        const validationError = err.validationErrors[0]
+        errorToast(validationError.description)
       } else if (typeof err === 'string') {
-        reason = err
+        errorToast(err)
+      } else {
+        errorToast('There was an error trading the tokens')
       }
-
-      errorToast(`There was an error trading the tokens. ${reason}`)
     } finally {
       trading = false
     }

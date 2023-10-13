@@ -12,6 +12,7 @@
   import { network } from '../../stores/network'
   import { NoAccountAddressError, NotConnectedError } from '../../libs/error'
   import type { FetchBalanceResult } from '@wagmi/core'
+  import { truncateString } from '../../libs/utils/truncateString'
 
   export let token: Token
   export let amount: bigint
@@ -25,7 +26,7 @@
 
   $: value = amount ? formatUnits(amount, token.decimals) : ''
   $: isTokenSelected = Boolean(token)
-  $: balance = tokenBalance ? `${tokenBalance.formatted} ${tokenBalance.symbol}` : ''
+  $: balance = tokenBalance ? `${truncateString(tokenBalance.formatted, 8)} ${tokenBalance.symbol}` : ''
 
   function onTokenSelect(_token: Token) {
     token = _token

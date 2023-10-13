@@ -5,6 +5,7 @@
   import FaTimesCircle from 'svelte-icons/fa/FaTimesCircle.svelte'
   import FaExclamationCircle from 'svelte-icons/fa/FaExclamationCircle.svelte'
   import type { SvelteComponent } from 'svelte'
+  import classNames from '../../libs/utils/classNames'
 
   export let type: TypeToast = 'unknown'
   export let message = ''
@@ -29,7 +30,7 @@
   }
 
   const icon = iconTypeMap[type]
-  const alertClasses = `alert flex justify-between ${alertClassMap[type]}`
+  const alertClasses = classNames('alert flex justify-between', alertClassMap[type])
 </script>
 
 <div role="alert" class={alertClasses}>
