@@ -20,7 +20,8 @@
   let settingItems: SettingItems
 
   let displayEstimatedGas: string = ''
-  let canTrade: boolean = false
+  let hasPrice: boolean = false
+  let hasError: boolean = false
   let gettingPrice: boolean = false
   let trading: boolean = false
 
@@ -29,11 +30,13 @@
   $: console.log('Token to:', tokenTo)
   $: console.log('Amount to:', amountTo)
 
+  $: canTrade = hasPrice && !hasError && !gettingPrice && !trading
+
   async function requestPrice(from?: Token, to?: Token, amount?: bigint, chain?: Chain) {
     // We only want to query the price if all the required data is present
     if (!from || !to || !amount || !chain) return
 
-    canTrade = false
+    hasPrice = false
     gettingPrice = true
     displayEstimatedGas = ''
     amountTo = BigInt(0)
@@ -55,7 +58,7 @@
       estimatedGas = BigInt(priceData.estimatedGas)
       displayEstimatedGas = `${formatUnits(estimatedGas, nativeCurrency.decimals)} ${nativeCurrency.symbol}`
 
-      canTrade = true
+      hasPrice = true
     } catch (err) {
       console.error(err)
       notifyError(err, 'There was an error fetching the price')
@@ -101,6 +104,10 @@
     }
   }
 
+  function onTokenError(event: CustomEvent<boolean>) {
+    hasError = event.detail
+  }
+
   // This function is called everytime one of the dependencies changes
   $: requestPrice(tokenFrom, tokenTo, amountFrom, $network)
 </script>
@@ -117,13 +124,14 @@
 
     <div class="body flex flex-col flex-1 md:flex-none justify-between">
       <div class="space-y-2 md:space-y-4 flex flex-col items-center my-4">
-        <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} disableToken={tokenTo} />
+        <TokenAmount bind:token={tokenFrom} bind:amount={amountFrom} on:error={onTokenError} disableToken={tokenTo} />
 
         <SwitchToken bind:tokenFrom bind:tokenTo />
 
         <TokenAmount
           bind:token={tokenTo}
           bind:amount={amountTo}
+          on:error={onTokenError}
           disableToken={tokenFrom}
           loading={gettingPrice}
           readonly />
@@ -133,10 +141,7 @@
         <div class="text-sm md:text-base">
           Estimated Gas: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
         </div>
-        <button
-          disabled={!canTrade || trading}
-          class="btn btn-primary btn-md w-full relative md:btn-lg"
-          on:click={trade}>
+        <button disabled={!canTrade} class="btn btn-primary btn-md w-full relative md:btn-lg" on:click={trade}>
           {#if trading}
             <Loading text="Trading…" size="sm" layout="row" />
           {:else}

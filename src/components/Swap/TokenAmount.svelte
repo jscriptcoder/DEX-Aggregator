@@ -4,7 +4,7 @@
   import TokenSelector from './TokenSelector.svelte'
   import { debounce } from 'debounce'
   import { inputConfig } from '../../app.config'
-  import { tick } from 'svelte'
+  import { createEventDispatcher, tick } from 'svelte'
   import Loading from '../Loading/Loading.svelte'
   import FaExclamationTriangle from 'svelte-icons/fa/FaExclamationTriangle.svelte'
   import getBalance from '../../libs/token/getBalance'
@@ -19,6 +19,8 @@
   export let readonly = false
   export let disableToken: Token
   export let loading = false
+
+  const dispatch = createEventDispatcher<{ error: boolean }>()
 
   let inputElem: HTMLInputElement
   let insufficientBalance = false
@@ -47,6 +49,9 @@
     // Do we have enough balance to cover the amount?
     if (amount > tokenBalanceResult.value) {
       insufficientBalance = true
+      dispatch('error', true)
+    } else {
+      dispatch('error', false)
     }
   }
 
