@@ -1,4 +1,4 @@
-import { errorToast } from "../NotificationToast"
+import { errorToast } from '../NotificationToast'
 
 export default function notifyError(err: unknown, defaultMsg: string) {
   if (err instanceof Error) {
