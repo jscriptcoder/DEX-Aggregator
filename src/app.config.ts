@@ -1,6 +1,6 @@
 export const apiConfig = {
   tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
-  // tokensUrl: 'https://erc20.cmc.eth.link/',
+  // tokensUrl: 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json',
 }
 
 export const inputConfig = {

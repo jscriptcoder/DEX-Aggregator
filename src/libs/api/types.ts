@@ -1,4 +1,4 @@
-import type { Address, Chain } from 'viem'
+import type { Address, Chain, Hex } from 'viem'
 import type { Token } from '../token/types'
 
 export interface BaseArgs {
@@ -28,5 +28,12 @@ export type PriceResponseData = {
 }
 
 export type QuoteResponseData = {
+  to: Address
+  data: Hex
+  gas: string
+  value: string
+  chainId: number
+  gasPrice: string
+  estimatedGas: string
   allowanceTarget: Address
 }

@@ -4,13 +4,14 @@
   import SwitchToken from './SwitchToken.svelte'
   import { network } from '../../stores/network'
   import { errorToast } from '../NotificationToast'
-  import { type Chain, formatUnits } from 'viem'
+  import { type Chain, formatUnits, type SendTransactionParameters } from 'viem'
   import Settings, { type SettingItems } from './Settings.svelte'
   import { getPrice, getQuote } from '../../libs/api/0x'
   import approveAllowance from '../../libs/token/approveAllowance'
   import { account } from '../../stores/account'
   import Loading from '../Loading/Loading.svelte'
   import notifyError from '../utils/notifyError'
+  import getConnectedWallet from '../../libs/utils/getConnectedWallet'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -86,7 +87,7 @@
       // If token has address then it's an ERC20 token
       if (tokenFrom.address) {
         // Approve the 0x contract to spend the token
-        const txHash = await approveAllowance({
+        const approveTxHash = await approveAllowance({
           account: $account.address,
           address: tokenFrom.address,
           spender: quotaData.allowanceTarget, // contains the address of the 0x contract
@@ -94,8 +95,19 @@
           chainId: $network.id,
         })
 
-        console.log('Approve tx hash:', txHash)
+        console.log('Approve tx hash:', approveTxHash)
       }
+
+      const wallet = await getConnectedWallet($network.id)
+      const swapTxHash = await wallet.sendTransaction({
+        to: quotaData.to,
+        data: quotaData.data,
+        gas: BigInt(quotaData.gas),
+        gasPrice: BigInt(quotaData.gasPrice),
+        value: BigInt(quotaData.value),
+      })
+
+      console.log('Swap tx hash:', swapTxHash)
     } catch (err) {
       console.error(err)
       notifyError(err, 'There was an error trading the tokens')
