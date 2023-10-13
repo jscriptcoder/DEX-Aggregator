@@ -22,11 +22,13 @@
 
   let inputElem: HTMLInputElement
   let insufficientBalance = false
-  let tokenBalance: FetchBalanceResult
+  let tokenBalanceResult: FetchBalanceResult
 
   $: value = amount ? formatUnits(amount, token.decimals) : ''
   $: isTokenSelected = Boolean(token)
-  $: balance = tokenBalance ? `${truncateString(tokenBalance.formatted, 8)} ${tokenBalance.symbol}` : ''
+  $: balance = tokenBalanceResult
+    ? `${truncateString(tokenBalanceResult.formatted, 8)} ${tokenBalanceResult.symbol}`
+    : ''
 
   function onTokenSelect(_token: Token) {
     token = _token
@@ -43,7 +45,7 @@
     insufficientBalance = false
 
     // Do we have enough balance to cover the amount?
-    if (amount > tokenBalance.value) {
+    if (amount > tokenBalanceResult.value) {
       insufficientBalance = true
     }
   }
@@ -54,7 +56,7 @@
     if (!token || !chainId || !address) return
 
     try {
-      tokenBalance = await getBalance({
+      tokenBalanceResult = await getBalance({
         address,
         chainId,
         token: token?.address,
