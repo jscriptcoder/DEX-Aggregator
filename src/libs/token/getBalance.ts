@@ -2,7 +2,6 @@ import { fetchBalance, type Address, type Unit } from '@wagmi/core'
 import checkConnected from '../utils/checkConnected'
 import { get } from 'svelte/store'
 import { account } from '../../stores/account'
-import { NoAccountAddressError } from '../error'
 
 type GetBalanceArgs = {
   // Address of balance to check
@@ -27,7 +26,7 @@ export default async function getBalance({ address, chainId, formatUnits, token 
     if ($account.address) {
       userAddress = $account.address
     } else {
-      throw new NoAccountAddressError()
+      throw new Error('No user address has been provided')
     }
   }
 

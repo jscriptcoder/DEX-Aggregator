@@ -10,6 +10,7 @@
   import approveAllowance from '../../libs/token/approveAllowance'
   import { account } from '../../stores/account'
   import Loading from '../Loading/Loading.svelte'
+  import notifyError from '../utils/notifyError'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -57,16 +58,7 @@
       canTrade = true
     } catch (err) {
       console.error(err)
-
-      let reason = 'Unknown'
-
-      if (err instanceof Error) {
-        reason = err.message
-      } else if (typeof err === 'string') {
-        reason = err
-      }
-
-      errorToast(`There was an error fetching the price. ${reason}`)
+      notifyError(err, 'There was an error fetching the price')
     } finally {
       gettingPrice = false
     }
@@ -103,17 +95,7 @@
       }
     } catch (err) {
       console.error(err)
-
-      if (err instanceof Error) {
-        errorToast(err.message)
-      } else if (err && typeof err === 'object' && 'validationErrors' in err && Array.isArray(err.validationErrors)) {
-        const validationError = err.validationErrors[0]
-        errorToast(validationError.description)
-      } else if (typeof err === 'string') {
-        errorToast(err)
-      } else {
-        errorToast('There was an error trading the tokens')
-      }
+      notifyError(err, 'There was an error trading the tokens')
     } finally {
       trading = false
     }

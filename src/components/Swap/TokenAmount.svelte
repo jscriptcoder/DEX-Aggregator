@@ -10,9 +10,9 @@
   import getBalance from '../../libs/token/getBalance'
   import { account } from '../../stores/account'
   import { network } from '../../stores/network'
-  import { NoAccountAddressError, NotConnectedError } from '../../libs/error'
   import type { FetchBalanceResult } from '@wagmi/core'
   import { truncateString } from '../../libs/utils/truncateString'
+  import notifyError from '../utils/notifyError'
 
   export let token: Token
   export let amount: bigint
@@ -61,17 +61,7 @@
       })
     } catch (err) {
       console.error(err)
-
-      switch (true) {
-        case err instanceof NotConnectedError:
-          // TODO
-          break
-        case err instanceof NoAccountAddressError:
-          // TODO
-          break
-        default:
-        // TODO
-      }
+      notifyError(err, 'There was an error fetching the balance')
     }
   }
 
