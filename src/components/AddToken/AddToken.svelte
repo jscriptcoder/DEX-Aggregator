@@ -1,26 +1,35 @@
 <script lang="ts">
   import type { ERC20Token, Token } from '../../libs/token/types'
   import getConnectedWallet from '../../libs/utils/getConnectedWallet'
+  import { errorToast, successToast } from '../NotificationToast'
+  import notifyError from '../utils/notifyError'
 
   export let value: Token
 
   async function addToken() {
     const { address, symbol, decimals, logoURI } = value as ERC20Token
 
-    const wallet = await getConnectedWallet()
+    try {
+      const wallet = await getConnectedWallet()
 
-    const success = await wallet.watchAsset({
-      type: 'ERC20',
-      options: {
-        address,
-        symbol,
-        decimals,
-        image: logoURI,
-      },
-    })
+      const success = await wallet.watchAsset({
+        type: 'ERC20',
+        options: {
+          address,
+          symbol,
+          decimals,
+          image: logoURI,
+        },
+      })
 
-    if (!success) {
-      // TODO: inform user that the token was not added
+      if (success) {
+        successToast('Token added to your wallet.')
+      } else {
+        errorToast('Failed to add token to your wallet.')
+      }
+    } catch (err) {
+      console.error(err)
+      notifyError(err, 'Failed to add token to your wallet.')
     }
   }
 </script>
