@@ -7,5 +7,5 @@ export default function getPublicClient(chainId?: number) {
     checkSupportedChain(chainId)
   }
 
-  return wagmiGetPublicClient({ chainId })
+  return wagmiGetPublicClient({ chainId }) // TODO: publicClient from web3?
 }

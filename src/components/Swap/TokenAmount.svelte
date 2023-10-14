@@ -3,7 +3,7 @@
   import type { Token } from '../../libs/token/types'
   import TokenSelector from './TokenSelector.svelte'
   import { debounce } from 'debounce'
-  import { inputConfig } from '../../app.config'
+  import { inputConfig, tokenSelectorConfig } from '../../app.config'
   import { createEventDispatcher, tick } from 'svelte'
   import Loading from '../Loading/Loading.svelte'
   import FaExclamationTriangle from 'svelte-icons/fa/FaExclamationTriangle.svelte'
@@ -84,10 +84,12 @@
   <div class="flex flex-col relative">
     {#if balance}
       <div class="balance">
-        {#if isERC20}
-          <AddToken />
-        {/if}
-        <span>Balance: {balance}</span>
+        <div class="flex items-center space-x-2">
+          {#if isERC20}
+            <AddToken value={token} />
+          {/if}
+          <span>Balance: {balance}</span>
+        </div>
       </div>
     {/if}
 
@@ -120,10 +122,7 @@
     @apply absolute 
       text-sm 
       top-[-1rem] 
-      right-0
-      flex
-      items-center
-      space-x-2;
+      right-0;
   }
 
   .TokenAmount {

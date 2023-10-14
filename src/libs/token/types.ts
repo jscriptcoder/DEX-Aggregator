@@ -8,3 +8,5 @@ export type Token = {
   logoURI: string
   address?: Address
 }
+
+export type ERC20Token = Required<Token>
