@@ -8,6 +8,10 @@ This app aggregates liquidity across the greater DEX ecosystem and surfaces the 
 
 Latest deployment: https://simple-dex-aggregator.vercel.app
 
+<p align="center">
+  <img width="600" src="resources/dex-screen.png" alt="DEX Aggregator">
+</p>
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
