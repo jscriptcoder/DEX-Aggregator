@@ -12,7 +12,7 @@ export const tokenSelectorConfig = {
   maxDisplay: 12,
 }
 
-export const notificarionConfig = {
+export const notificationConfig = {
   duration: 5000,
 }
 

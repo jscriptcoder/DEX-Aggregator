@@ -22,7 +22,7 @@
     notify(message, 'success', closeManually)
   }
 
-  export function errorToast(message: string, closeManually = true) {
+  export function errorToast(message: string, closeManually = false) {
     notify(message, 'error', closeManually)
   }
 
@@ -38,10 +38,10 @@
 <script lang="ts">
   import { SvelteToast } from '@zerodevx/svelte-toast'
   import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores'
-  import { notificarionConfig } from '../../app.config'
+  import { notificationConfig } from '../../app.config'
 
   const options: SvelteToastOptions = {
-    duration: notificarionConfig.duration,
+    duration: notificationConfig.duration,
     pausable: false,
   }
 </script>

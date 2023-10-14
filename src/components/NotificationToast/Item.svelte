@@ -40,7 +40,7 @@
         <svelte:component this={icon} />
       </div>
     {/if}
-    <span class="flex-1">{message}</span>
+    <span class="flex-1">{@html message}</span>
   </div>
   <button on:click={close}>✕</button>
 </div>

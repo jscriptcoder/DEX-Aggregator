@@ -46,6 +46,7 @@
     "@web3modal/html": "^2.7.1",
     "@zerodevx/svelte-toast": "^0.9.5",
     "debounce": "^1.2.1",
+    "svelte-i18n": "^3.7.4",
     "svelte-icons": "^2.1.0",
     "viem": "^1.10.14"
   }
