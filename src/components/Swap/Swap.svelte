@@ -69,7 +69,7 @@
       hasPrice = true
     } catch (err) {
       console.error(err)
-      notifyError(err, $t('swap.error-price'))
+      notifyError(err, $t('swap.error.price'))
     } finally {
       gettingPrice = false
     }
@@ -133,7 +133,7 @@
 
       const explorer = $network.blockExplorers?.default.url
       const txUrl = `${explorer}/tx/${swapTxHash}`
-      successToast($t('swap.trading.ongoing', { values: { txUrl } }))
+      successToast($t('swap.ongoing', { values: { txUrl } }))
 
       // Step 4: Let's wait for the transaction to be mined,
       // and find out if it was successful or not
@@ -142,11 +142,11 @@
       console.log('Swap tx receipt:', receipt)
 
       if (receipt.status === 'reverted') {
-        errorToast($t('swap.trading.reverted', { values: { txUrl } }))
+        errorToast($t('swap.reverted', { values: { txUrl } }))
       }
     } catch (err) {
       console.error(err)
-      notifyError(err, $t('swap.trading.error'))
+      notifyError(err, $t('swap.error.trading'))
     } finally {
       trading = false
     }
@@ -191,7 +191,7 @@
         </div>
         <button disabled={!canTrade} class="btn btn-primary btn-md w-full relative md:btn-lg" on:click={trade}>
           {#if trading}
-            <Loading text="Trading…" size="sm" layout="row" />
+            <Loading text={$t('swap.trading')} size="sm" layout="row" />
           {:else}
             {$t('swap.trade')}
           {/if}
