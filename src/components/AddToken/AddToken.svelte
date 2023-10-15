@@ -24,18 +24,18 @@
       })
 
       if (success) {
-        successToast($t('Token added to your wallet'))
+        successToast($t('add-token.added'))
       } else {
-        errorToast($t('Failed to add token to your wallet'))
+        errorToast($t('add-token.failed'))
       }
     } catch (err) {
       console.error(err)
-      notifyError(err, $t('Failed to add token to your wallet'))
+      notifyError(err, $t('add-token.failed'))
     }
   }
 </script>
 
-<div class="tooltip" data-tip={$t('Add token to MetaMask wallet')}>
+<div class="tooltip" data-tip={$t('add-token.tooltip')}>
   <button on:click={addToken}>
     <img src="/metamask.svg" width="16" alt="Metamask" />
   </button>

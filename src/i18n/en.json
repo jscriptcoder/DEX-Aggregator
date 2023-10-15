@@ -1,21 +1,37 @@
 {
-  "Swap": "Swap",
-  "Trade": "Trade",
-  "Select": "Select",
-  "Token": "Token",
-  "See more…": "See more…",
-  "Estimated Gas": "Estimated Gas",
-  "Insifficient balance": "Insifficient balance",
-  "Token added to your wallet": "Token added to your wallet",
-  "Failed to add token to your wallet": "Failed to add token to your wallet",
-  "Add token to MetaMask wallet": "Add token to MetaMask wallet",
-  "List of Supported Chains": "List of Supported Chains",
-  "Please, select one of our supported chain": "Please, select one of our supported chain",
-  "There was an error fetching the price": "There was an error fetching the price",
-  "Trade is on the way": "Trade is on the way",
-  "The trade was reverted": "The trade was reverted",
-  "There was an error trading the tokens": "There was an error trading the tokens",
-  "Trade tokens in an instant": "Trade tokens in an instant",
-  "There was an error fetching the balance": "There was an error fetching the balance",
-  "Search token by name, symbol or address": "Search token by name, symbol or address"
+  "see-more": "See more…",
+  "swap": {
+    "title": "Swap",
+    "subtitle": "Trade tokens in an instant",
+    "estimate-gas": "Estimated Gas",
+    "trade": "Trade",
+    "error-price": "There was an error fetching the price",
+    "trading": {
+      "error": "There was an error trading the tokens",
+      "ongoing": "Trade is on the way. Click <a href=\"{txUrl}\"><i>here</i></a> to view the transaction",
+      "reverted": "The trade was reverted. Click <a href=\"{txUrl}\"><i>here</i></a> to view the failed transaction"
+    }
+  },
+  "token-amount": {
+    "balance": "Balance",
+    "getting-price": "Getting price…",
+    "insufficient-balance": "Insifficient balance",
+    "error-fetching-balance": "There was an error fetching the balance"
+  },
+  "token-selector": {
+    "select": "Select",
+    "token": "Token",
+    "loading": "Loading tokens…",
+    "search": "Search token by name, symbol or address",
+    "no-tokens": "No tokens founds on {chain}"
+  },
+  "add-token": {
+    "tooltip": "Add token to MetaMask wallet",
+    "added": "Token added to your wallet",
+    "failed": "Failed to add token to your wallet"
+  },
+  "supported-chains": {
+    "title": "List of Supported Chains",
+    "subtitle": "Please, select one of our supported chain"
+  }
 }

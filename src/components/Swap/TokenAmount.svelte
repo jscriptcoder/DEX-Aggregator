@@ -89,7 +89,7 @@
           {#if isERC20}
             <AddToken value={token} />
           {/if}
-          <span>Balance: {balance}</span>
+          <span>{$t('token-amount.balance')}: {balance}</span>
         </div>
       </div>
     {/if}
@@ -108,13 +108,13 @@
     {#if insufficientBalance}
       <div role="alert">
         <div class="w-4 h-4"><FaExclamationTriangle /></div>
-        <span>{$t('Insifficient balance')}</span>
+        <span>{$t('token-amount.insufficient-balance')}</span>
       </div>
     {/if}
   </div>
 
   {#if loading}
-    <Loading text="Getting price…" size="sm" layout="row" />
+    <Loading text={$t('token-amount.getting-price')} size="sm" layout="row" />
   {/if}
 </div>
 

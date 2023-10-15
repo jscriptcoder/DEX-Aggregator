@@ -69,7 +69,7 @@
       hasPrice = true
     } catch (err) {
       console.error(err)
-      notifyError(err, $t('There was an error fetching the price'))
+      notifyError(err, $t('swap.error-price'))
     } finally {
       gettingPrice = false
     }
@@ -133,7 +133,7 @@
 
       const explorer = $network.blockExplorers?.default.url
       const txUrl = `${explorer}/tx/${swapTxHash}`
-      successToast(`Trade is on the way. Click <a href="${txUrl}"><b>here</b></a> to view the transaction.`)
+      successToast($t('swap.trading.ongoing', { values: { txUrl } }))
 
       // Step 4: Let's wait for the transaction to be mined,
       // and find out if it was successful or not
@@ -142,11 +142,11 @@
       console.log('Swap tx receipt:', receipt)
 
       if (receipt.status === 'reverted') {
-        errorToast(`The trade was reverted. Click <a href="${txUrl}"><b>here</b></b> to view the failed transaction.`)
+        errorToast($t('swap.trading.reverted', { values: { txUrl } }))
       }
     } catch (err) {
       console.error(err)
-      notifyError(err, $t('There was an error trading the tokens'))
+      notifyError(err, $t('swap.trading.error'))
     } finally {
       trading = false
     }
@@ -164,10 +164,10 @@
   <div class="card-body p-4 md:p-8">
     <div class="header">
       <div class="flex justify-between">
-        <h2 class="card-title">{$t('Swap')}</h2>
+        <h2 class="card-title">{$t('swap.title')}</h2>
         <Settings bind:items={settingItems} />
       </div>
-      <p>{$t('Trade tokens in an instant')}</p>
+      <p>{$t('swap.subtitle')}</p>
     </div>
 
     <div class="body flex flex-col flex-1 md:flex-none justify-between">
@@ -187,13 +187,13 @@
 
       <div class="space-y-2 md:space-y-4">
         <div class="text-sm md:text-base">
-          {$t('Estimated Gas')}: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
+          {$t('swap.estimate-gas')}: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
         </div>
         <button disabled={!canTrade} class="btn btn-primary btn-md w-full relative md:btn-lg" on:click={trade}>
           {#if trading}
             <Loading text="Trading…" size="sm" layout="row" />
           {:else}
-            {$t('Trade')}
+            {$t('swap.trade')}
           {/if}
         </button>
       </div>

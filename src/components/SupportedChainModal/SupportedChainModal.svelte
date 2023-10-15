@@ -12,8 +12,8 @@
 <dialog class="modal modal-bottom md:modal-middle" class:modal-open={showDiablog}>
   <div class="modal-box">
     <div class="header">
-      <h3 class="font-bold text-lg">{$t('List of Supported Chains')}</h3>
-      <p>{$t('Please, select one of our supported chain')}:</p>
+      <h3 class="font-bold text-lg">{$t('supported-chains.title')}</h3>
+      <p>{$t('supported-chains.subtitle')}:</p>
     </div>
 
     <ul tabindex="-1">

@@ -133,8 +133,8 @@
       </div>
     {:else}
       <span class="token-label capitalize">
-        <span class="hidden md:inline">{$t('Select')}</span>
-        <span>{$t('Token')}</span>
+        <span class="hidden md:inline">{$t('token-selector.select')}</span>
+        <span>{$t('token-selector.token')}</span>
       </span>
     {/if}
   </button>
@@ -145,19 +145,18 @@
         <div class="w-5">
           <FaSearch />
         </div>
-        <input
-          bind:this={inputElem}
-          placeholder={$t('Search token by name, symbol or address')}
-          on:input={debouncedOnInput} />
+        <input bind:this={inputElem} placeholder={$t('token-selector.search')} on:input={debouncedOnInput} />
         <button class="btn-handy" on:click={closeModal}>✕</button>
       </div>
 
       <div class="token-list">
         {#if fetching}
-          <Loading text="Loading tokens…" />
+          <Loading text={$t('token-selector.loading')} />
         {:else if noTokens}
           <div class="f-center flex-col w-full space-y-4">
-            <span>No tokens founds {$network ? `on ${$network?.name}` : ''}</span>
+            <span>
+              {$t('token-selector.no-tokens', { values: { chain: $network?.name } })}
+            </span>
             <span>¯\_(ツ)_/¯</span>
           </div>
         {:else}
@@ -167,7 +166,9 @@
             {/each}
 
             {#if isMore}
-              <button class="btn btn-link no-underline capitalize" on:click={seeMoreTokens}>{$t('See more…')}</button>
+              <button class="btn btn-link no-underline capitalize" on:click={seeMoreTokens}>
+                {$t('token-selector.see-more')}
+              </button>
             {/if}
           </ul>
         {/if}
