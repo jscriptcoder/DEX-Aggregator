@@ -1,5 +1,4 @@
 {
-  "see-more": "See more…",
   "swap": {
     "title": "Swap",
     "subtitle": "Trade tokens in an instant",
@@ -8,7 +7,7 @@
     "error-price": "There was an error fetching the price",
     "trading": {
       "error": "There was an error trading the tokens",
-      "ongoing": "Trade is on the way. Click <a href=\"{txUrl}\"><i>here</i></a> to view the transaction",
+      "ongoing": "Trade is on the way. Click <a href=\"{txUrl}\"><i>here</i></a> to view the state of the transaction",
       "reverted": "The trade was reverted. Click <a href=\"{txUrl}\"><i>here</i></a> to view the failed transaction"
     }
   },
@@ -23,7 +22,8 @@
     "token": "Token",
     "loading": "Loading tokens…",
     "search": "Search token by name, symbol or address",
-    "no-tokens": "No tokens founds on {chain}"
+    "no-tokens": "No tokens founds on {chain}",
+    "see-more": "See more…"
   },
   "add-token": {
     "tooltip": "Add token to MetaMask wallet",
