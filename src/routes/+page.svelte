@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
   import '../app.css'
+  import '../i18n'
+
+  import { onMount } from 'svelte'
   import Header from '../components/Header'
   import Swap from '../components/Swap'
   import { startWatching } from '../libs/web3/connection'

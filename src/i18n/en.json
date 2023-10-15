@@ -1,1 +1,21 @@
-{}
+{
+  "Swap": "Swap",
+  "Trade": "Trade",
+  "Select": "Select",
+  "Token": "Token",
+  "See more…": "See more…",
+  "Estimated Gas": "Estimated Gas",
+  "Insifficient balance": "Insifficient balance",
+  "Token added to your wallet": "Token added to your wallet",
+  "Failed to add token to your wallet": "Failed to add token to your wallet",
+  "Add token to MetaMask wallet": "Add token to MetaMask wallet",
+  "List of Supported Chains": "List of Supported Chains",
+  "Please, select one of our supported chain": "Please, select one of our supported chain",
+  "There was an error fetching the price": "There was an error fetching the price",
+  "Trade is on the way": "Trade is on the way",
+  "The trade was reverted": "The trade was reverted",
+  "There was an error trading the tokens": "There was an error trading the tokens",
+  "Trade tokens in an instant": "Trade tokens in an instant",
+  "There was an error fetching the balance": "There was an error fetching the balance",
+  "Search token by name, symbol or address": "Search token by name, symbol or address"
+}

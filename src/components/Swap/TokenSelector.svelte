@@ -12,6 +12,7 @@
   import { network } from '../../stores/network'
   import TokenItem from './TokenItem.svelte'
   import type { Chain } from 'viem'
+  import { t } from 'svelte-i18n'
 
   export let value: Token
   export let onSelect: OnTokenSelect
@@ -132,8 +133,8 @@
       </div>
     {:else}
       <span class="token-label capitalize">
-        <span class="hidden md:inline">Select</span>
-        <span>Token</span>
+        <span class="hidden md:inline">{$t('Select')}</span>
+        <span>{$t('Token')}</span>
       </span>
     {/if}
   </button>
@@ -146,7 +147,7 @@
         </div>
         <input
           bind:this={inputElem}
-          placeholder="Search token by name, symbol or address"
+          placeholder={$t('Search token by name, symbol or address')}
           on:input={debouncedOnInput} />
         <button class="btn-handy" on:click={closeModal}>✕</button>
       </div>
@@ -166,7 +167,7 @@
             {/each}
 
             {#if isMore}
-              <button class="btn btn-link no-underline capitalize" on:click={seeMoreTokens}>See more…</button>
+              <button class="btn btn-link no-underline capitalize" on:click={seeMoreTokens}>{$t('See more…')}</button>
             {/if}
           </ul>
         {/if}

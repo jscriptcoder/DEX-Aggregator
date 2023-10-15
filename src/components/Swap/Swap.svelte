@@ -14,6 +14,7 @@
   import { errorToast, successToast } from '../NotificationToast'
   import type { GetPriceArgs, GetQuoteArgs } from '../../libs/api/types'
   import { waitForTransaction } from '@wagmi/core'
+  import { t } from 'svelte-i18n'
 
   let tokenFrom: Token
   let amountFrom: bigint
@@ -68,7 +69,7 @@
       hasPrice = true
     } catch (err) {
       console.error(err)
-      notifyError(err, 'There was an error fetching the price.')
+      notifyError(err, $t('There was an error fetching the price'))
     } finally {
       gettingPrice = false
     }
@@ -145,7 +146,7 @@
       }
     } catch (err) {
       console.error(err)
-      notifyError(err, 'There was an error trading the tokens.')
+      notifyError(err, $t('There was an error trading the tokens'))
     } finally {
       trading = false
     }
@@ -163,10 +164,10 @@
   <div class="card-body p-4 md:p-8">
     <div class="header">
       <div class="flex justify-between">
-        <h2 class="card-title">Swap</h2>
+        <h2 class="card-title">{$t('Swap')}</h2>
         <Settings bind:items={settingItems} />
       </div>
-      <p>Trade tokens in an instant</p>
+      <p>{$t('Trade tokens in an instant')}</p>
     </div>
 
     <div class="body flex flex-col flex-1 md:flex-none justify-between">
@@ -186,13 +187,13 @@
 
       <div class="space-y-2 md:space-y-4">
         <div class="text-sm md:text-base">
-          Estimated Gas: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
+          {$t('Estimated Gas')}: <span class="font-bold">{displayEstimatedGas ?? '?'}</span>
         </div>
         <button disabled={!canTrade} class="btn btn-primary btn-md w-full relative md:btn-lg" on:click={trade}>
           {#if trading}
             <Loading text="Trading…" size="sm" layout="row" />
           {:else}
-            Trade
+            {$t('Trade')}
           {/if}
         </button>
       </div>

@@ -3,6 +3,7 @@
   import getConnectedWallet from '../../libs/utils/getConnectedWallet'
   import { errorToast, successToast } from '../NotificationToast'
   import notifyError from '../utils/notifyError'
+  import { t } from 'svelte-i18n'
 
   export let value: Token
 
@@ -23,18 +24,18 @@
       })
 
       if (success) {
-        successToast('Token added to your wallet.')
+        successToast($t('Token added to your wallet'))
       } else {
-        errorToast('Failed to add token to your wallet.')
+        errorToast($t('Failed to add token to your wallet'))
       }
     } catch (err) {
       console.error(err)
-      notifyError(err, 'Failed to add token to your wallet.')
+      notifyError(err, $t('Failed to add token to your wallet'))
     }
   }
 </script>
 
-<div class="tooltip" data-tip="Add token to MetaMask wallet">
+<div class="tooltip" data-tip={$t('Add token to MetaMask wallet')}>
   <button on:click={addToken}>
     <img src="/metamask.svg" width="16" alt="Metamask" />
   </button>

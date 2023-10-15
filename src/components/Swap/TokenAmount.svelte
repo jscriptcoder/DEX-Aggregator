@@ -14,6 +14,7 @@
   import { truncateString } from '../../libs/utils/truncateString'
   import notifyError from '../utils/notifyError'
   import AddToken from '../AddToken'
+  import { t } from 'svelte-i18n'
 
   export let token: Token
   export let amount: bigint
@@ -72,7 +73,7 @@
       })
     } catch (err) {
       console.error(err)
-      notifyError(err, 'There was an error fetching the balance')
+      notifyError(err, $t('There was an error fetching the balance'))
     }
   }
 
@@ -107,7 +108,7 @@
     {#if insufficientBalance}
       <div role="alert">
         <div class="w-4 h-4"><FaExclamationTriangle /></div>
-        <span>Insifficient balance</span>
+        <span>{$t('Insifficient balance')}</span>
       </div>
     {/if}
   </div>

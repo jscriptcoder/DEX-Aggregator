@@ -4,6 +4,7 @@
   import selectNetwork from '../utils/selectNetwork'
   import { network } from '../../stores/network'
   import { isChainSupported } from '../../libs/web3/wagmi'
+  import { t } from 'svelte-i18n'
 
   $: showDiablog = $network ? !isChainSupported($network.id) : false
 </script>
@@ -11,8 +12,8 @@
 <dialog class="modal modal-bottom md:modal-middle" class:modal-open={showDiablog}>
   <div class="modal-box">
     <div class="header">
-      <h3 class="font-bold text-lg">List of Supported Chains</h3>
-      <p>Please, select one of our supported chain:</p>
+      <h3 class="font-bold text-lg">{$t('List of Supported Chains')}</h3>
+      <p>{$t('Please, select one of our supported chain')}:</p>
     </div>
 
     <ul tabindex="-1">
