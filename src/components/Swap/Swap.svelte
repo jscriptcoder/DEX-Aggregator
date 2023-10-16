@@ -167,18 +167,28 @@
       // and find out if it was successful or not. We don't need
       // to block the execution here. The user should still be able
       // to swap other tokens while we wait for the tx receipt
-      waitForTransaction({ hash: swapTxHash, chainId: $network.id }).then((receipt) => {
-        console.log('Swap tx receipt:', receipt)
+      waitForTransaction({ hash: swapTxHash, chainId: $network.id })
+        .then((receipt) => {
+          console.log('Swap tx receipt:', receipt)
 
-        switch (true) {
-          case receipt.status === 'success':
-            successToast($t('swap.success', { values: { from, to } }))
-            break
-          case receipt.status === 'reverted':
-            errorToast($t('swap.reverted', withLinkValues), withLinkDuration)
-            break
-        }
-      })
+          switch (true) {
+            case receipt.status === 'success':
+              successToast($t('swap.success', { values: { from, to } }))
+              break
+            case receipt.status === 'reverted':
+              errorToast($t('swap.reverted', withLinkValues), withLinkDuration)
+              break
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+          // TODO: There seems to be a bug in Viem when the transaction is
+          // reverted, throwing an exception internally:
+          // <code>
+          //   const reason = hexToString3(`0x${code.substring(138)}`) // "code" is an object
+          // </code>
+          errorToast($t('swap.reverted', withLinkValues), withLinkDuration)
+        })
 
       // Step 5: Clear the form
       clearSwap()

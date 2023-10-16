@@ -1,7 +1,7 @@
 import type { Chain } from '@wagmi/core'
-import { arbitrum, mainnet, polygon, goerli, optimism, avalanche, base, bsc } from '@wagmi/core/chains'
+import { arbitrum, mainnet, polygon, goerli, optimism, avalanche, base, bsc, sepolia } from '@wagmi/core/chains'
 
-export const chains: Chain[] = [mainnet, goerli, arbitrum, optimism, polygon, avalanche, base, bsc]
+export const chains: Chain[] = [mainnet, sepolia, goerli, arbitrum, optimism, polygon, avalanche, base, bsc]
 
 const iconChainBaseURL = 'https://icons.llamao.fi/icons/chains'
 const apiBaseDomain = 'api.0x.org'
@@ -15,6 +15,10 @@ export const chainMetaMap: Record<number, ChainMeta> = {
   [mainnet.id]: {
     iconUrl: `${iconChainBaseURL}/rsz_ethereum.jpg`,
     apiBase: `https://${apiBaseDomain}`,
+  },
+  [sepolia.id]: {
+    iconUrl: `${iconChainBaseURL}/rsz_ethereum.jpg`,
+    apiBase: `https://sepolia.${apiBaseDomain}`,
   },
   [goerli.id]: {
     iconUrl: `${iconChainBaseURL}/rsz_ethereum.jpg`,
