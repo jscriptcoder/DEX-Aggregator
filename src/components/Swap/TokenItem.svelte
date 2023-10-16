@@ -8,7 +8,7 @@
 
 <li>
   <button {disabled} class="btn btn-ghost" on:click={() => onSelect?.(value)}>
-    <div class="avatar w-6">
+    <div class="avatar h-6 md:h-8">
       {#if value.logoURI}
         <img src={value.logoURI} alt={value.name} />
       {:else}
@@ -19,7 +19,7 @@
     </div>
 
     <div class="flex flex-col items-start">
-      <span class="capitalize">{value.name}</span>
+      <span class="capitalize text-xs md:text-sm">{value.name}</span>
       <span class="text-[10px] uppercase">{value.symbol}</span>
     </div>
   </button>

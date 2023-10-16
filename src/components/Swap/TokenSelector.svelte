@@ -126,7 +126,7 @@
   <button class="btn dark:btn-neutral btn-sm md:btn-md md:min-w-[140px]" on:click={openModal}>
     {#if value}
       <div class="flex items-center space-x-2">
-        <div class="avatar w-6">
+        <div class="avatar h-6 md:h-8">
           <img src={value.logoURI} alt={value.name} />
         </div>
         <span class="token-label">{value.symbol}</span>
