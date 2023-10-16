@@ -28,10 +28,13 @@
   let insufficientBalance = false
   let tokenBalanceResult: FetchBalanceResult | undefined
 
+  // Computes the value displayed in the input
   $: value = amount && token ? formatUnits(amount, token.decimals) : ''
 
+  // Empties the token balance if unselecting the token
   $: if (!token) tokenBalanceResult = undefined
 
+  // Formats the readable version of the balance
   $: balance = tokenBalanceResult
     ? `${truncateString(tokenBalanceResult.formatted, 8)} ${tokenBalanceResult.symbol}`
     : ''
