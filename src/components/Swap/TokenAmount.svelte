@@ -96,7 +96,10 @@
           {#if isERC20}
             <AddToken value={token} />
           {/if}
-          <span>{$t('token-amount.balance')}: {balance}</span>
+          <span>
+            <span class="hidden md:inline">{$t('token-amount.balance')}:</span>
+            <span>{balance}</span>
+          </span>
         </div>
       </div>
     {/if}
@@ -127,18 +130,20 @@
 
 <style lang="postcss">
   .balance {
-    @apply absolute 
-      text-sm 
-      top-[-1rem] 
-      right-0;
+    @apply absolute
+      right-0
+      text-xs
+      top-[-0.75rem]
+      md:text-sm
+      md:top-[-1rem];
   }
 
   .TokenAmount {
     @apply relative
-      flex 
-      items-center 
-      justify-between 
-      outline-none 
+      flex
+      items-center
+      justify-between
+      outline-none
       rounded-lg
       w-full
       gap-2
@@ -155,9 +160,9 @@
   }
 
   input {
-    @apply bg-transparent 
-      outline-none 
-      flex-1 
+    @apply bg-transparent
+      outline-none
+      flex-1
       text-right
       w-full
       p-2
@@ -167,13 +172,15 @@
   }
 
   [role='alert'] {
-    @apply absolute 
-      flex 
-      text-sm 
-      items-center 
-      space-x-2 
-      text-red-400 
-      bottom-[-1rem] 
-      right-0;
+    @apply absolute
+      flex
+      text-xs
+      items-center
+      space-x-2
+      text-red-400
+      bottom-[-0.75rem]
+      right-0
+      md:text-sm
+      md:bottom-[-1rem];
   }
 </style>

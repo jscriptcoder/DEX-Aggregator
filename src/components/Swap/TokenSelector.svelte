@@ -179,9 +179,9 @@
 
 <style lang="postcss">
   .header {
-    @apply flex 
-      items-center 
-      justify-between 
+    @apply flex
+      items-center
+      justify-between
       gap-2;
   }
 
@@ -190,8 +190,8 @@
   }
 
   input {
-    @apply bg-transparent 
-      outline-none 
+    @apply bg-transparent
+      outline-none
       font-medium
       w-full;
   }
