@@ -1,4 +1,4 @@
-# DEX Aggregator (work in progress)
+# DEX Aggregator
 
 <p align="center">
   <img width="300" src="resources/decentralized-exchange.png" alt="Decentralized Exchanges">
