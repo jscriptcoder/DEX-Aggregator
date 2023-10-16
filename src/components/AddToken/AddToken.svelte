@@ -5,9 +5,11 @@
   import notifyError from '../utils/notifyError'
   import { t } from 'svelte-i18n'
 
-  export let value: Token
+  export let value: Token | undefined
 
   async function addToken() {
+    if (!value) return
+
     const { address, symbol, decimals, logoURI } = value as ERC20Token
 
     try {

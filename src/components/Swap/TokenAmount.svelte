@@ -16,20 +16,22 @@
   import AddToken from '../AddToken'
   import { t } from 'svelte-i18n'
 
-  export let token: Token
-  export let amount: bigint
+  export let token: Token | undefined
+  export let amount: bigint | undefined
   export let readonly = false
-  export let disableToken: Token
+  export let disableToken: Token | undefined
   export let loading = false
 
   const dispatch = createEventDispatcher<{ error: boolean }>()
 
   let inputElem: HTMLInputElement
   let insufficientBalance = false
-  let tokenBalanceResult: FetchBalanceResult
+  let tokenBalanceResult: FetchBalanceResult | undefined
 
-  $: value = amount ? formatUnits(amount, token.decimals) : ''
-  $: isTokenSelected = Boolean(token)
+  $: value = amount && token ? formatUnits(amount, token.decimals) : ''
+
+  $: if (!token) tokenBalanceResult = undefined
+
   $: balance = tokenBalanceResult
     ? `${truncateString(tokenBalanceResult.formatted, 8)} ${tokenBalanceResult.symbol}`
     : ''
@@ -45,6 +47,8 @@
   }
 
   async function onInput(event: Event) {
+    if (!token || !tokenBalanceResult) return
+
     const input = event.target as HTMLInputElement
     const value = input.value
 
@@ -101,7 +105,7 @@
       step="0.1"
       {value}
       {readonly}
-      disabled={!isTokenSelected}
+      disabled={!token}
       on:input={debouncedOnInput}
       bind:this={inputElem} />
 

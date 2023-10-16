@@ -5,8 +5,9 @@
     "estimate-gas": "Estimated Gas",
     "trade": "Trade",
     "trading": "Trading…",
-    "ongoing": "Trade is on the way. Click <a href=\"{txUrl}\"><i>here</i></a> to view the state of the transaction",
-    "reverted": "The trade was reverted. Click <a href=\"{txUrl}\"><i>here</i></a> to view the failed transaction",
+    "ongoing": "Trade is on the way. Click <a href=\"{txUrl}\" target=\"_blank\"><u>here</u></a> to view the state of the transaction",
+    "reverted": "The trade was reverted. Click <a href=\"{txUrl}\" target=\"_blank\"><u>here</u></a> to view the failed transaction",
+    "success": "Trade betwen <b>{from}</b> and <b>{to}</b> was successful",
     "error": {
       "price": "There was an error fetching the price",
       "trading": "There was an error trading the tokens"

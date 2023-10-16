@@ -14,9 +14,9 @@
   import type { Chain } from 'viem'
   import { t } from 'svelte-i18n'
 
-  export let value: Token
+  export let value: Token | undefined
+  export let disableValue: Token | undefined // TODO: prop drilling. Store?
   export let onSelect: OnTokenSelect
-  export let disableValue: Token // TODO: prop drilling. Store?
 
   const { maxDisplay } = tokenSelectorConfig
 
@@ -30,7 +30,7 @@
   let displayTokens: Token[] = [] // contains only the tokens to be rendered
   let indexTokenMap: Record<string, Token> = {} // used for quick tokens look up
 
-  $: noTokens = displayTokens.length === 0
+  $: noTokens = displayTokens?.length === 0
   $: isMore = filteredTokens.length > displayTokens.length
 
   function openModal() {

@@ -1,7 +1,7 @@
 export const apiConfig = {
-  tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
+  // tokensUrl: 'https://tokens.coingecko.com/uniswap/all.json',
   // tokensUrl: 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json',
-  // tokensUrl: 'https://static.optimism.io/optimism.tokenlist.json',
+  tokensUrl: 'https://static.optimism.io/optimism.tokenlist.json',
 }
 
 export const inputConfig = {
@@ -13,7 +13,10 @@ export const tokenSelectorConfig = {
 }
 
 export const notificationConfig = {
-  duration: 5000,
+  duration: {
+    default: 5000,
+    withLinks: 10000,
+  },
 }
 
 export const tokenLogo: Record<string, string> = {

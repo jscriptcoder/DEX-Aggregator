@@ -15,12 +15,13 @@
   import type { GetPriceArgs, GetQuoteArgs } from '../../libs/api/types'
   import { waitForTransaction } from '@wagmi/core'
   import { t } from 'svelte-i18n'
+  import { notificationConfig } from '../../app.config'
 
-  let tokenFrom: Token
-  let amountFrom: bigint
-  let tokenTo: Token
-  let amountTo: bigint
-  let estimatedGas: bigint
+  let tokenFrom: Token | undefined
+  let amountFrom: bigint | undefined
+  let tokenTo: Token | undefined
+  let amountTo: bigint | undefined
+  let estimatedGas: bigint | undefined
   let settingItems: SettingItems
 
   let displayEstimatedGas: string = ''
@@ -51,6 +52,7 @@
         sellToken: from.address,
         buyToken: to.address,
         sellAmount: amount.toString(),
+        takerAddress: $account?.address,
       }
 
       console.log('Price arguments:', priceArgs)
@@ -75,8 +77,23 @@
     }
   }
 
+  function clearSwap() {
+    // Reset the state
+    tokenFrom = undefined
+    amountFrom = undefined
+    tokenTo = undefined
+    amountTo = undefined
+    estimatedGas = undefined
+    displayEstimatedGas = ''
+    hasPrice = false
+    hasError = false
+    gettingPrice = false
+    trading = false
+  }
+
   async function trade() {
-    if (!$network || !$account || !$account.address || !canTrade) return
+    if (!tokenFrom || !amountFrom || !tokenTo || !amountTo || !$network || !$account || !$account.address || !canTrade)
+      return
 
     trading = true
 
@@ -87,6 +104,7 @@
         sellToken: tokenFrom.address,
         buyToken: tokenTo.address,
         sellAmount: amountTo.toString(),
+        takerAddress: $account.address,
         slippagePercentage: settingItems.slippage.toString(),
       }
 
@@ -96,7 +114,8 @@
 
       console.log('Quote data:', quotaData)
 
-      // Step 2: If token has address then it's an ERC20 token
+      // Step 2: If token has address then it's an ERC20 token,
+      // so we need to approve the 0x contract as the spender
       if (tokenFrom.address) {
         const approveArgs = {
           account: $account.address,
@@ -131,19 +150,38 @@
 
       console.log('Swap tx hash:', swapTxHash)
 
+      // =========================================== //
+
       const explorer = $network.blockExplorers?.default.url
       const txUrl = `${explorer}/tx/${swapTxHash}`
-      successToast($t('swap.ongoing', { values: { txUrl } }))
+
+      const withLinkDuration = { duration: notificationConfig.duration.withLinks }
+      const withLinkValues = { values: { txUrl } }
+
+      const from = tokenFrom.symbol
+      const to = tokenTo.symbol
+
+      successToast($t('swap.ongoing', withLinkValues), withLinkDuration)
 
       // Step 4: Let's wait for the transaction to be mined,
-      // and find out if it was successful or not
-      const receipt = await waitForTransaction({ hash: swapTxHash, chainId: $network.id })
+      // and find out if it was successful or not. We don't need
+      // to block the execution here. The user should still be able
+      // to swap other tokens while we wait for the tx receipt
+      waitForTransaction({ hash: swapTxHash, chainId: $network.id }).then((receipt) => {
+        console.log('Swap tx receipt:', receipt)
 
-      console.log('Swap tx receipt:', receipt)
+        switch (true) {
+          case receipt.status === 'success':
+            successToast($t('swap.success', { values: { from, to } }))
+            break
+          case receipt.status === 'reverted':
+            errorToast($t('swap.reverted', withLinkValues), withLinkDuration)
+            break
+        }
+      })
 
-      if (receipt.status === 'reverted') {
-        errorToast($t('swap.reverted', { values: { txUrl } }))
-      }
+      // Step 5: Clear the form
+      clearSwap()
     } catch (err) {
       console.error(err)
       notifyError(err, $t('swap.error.trading'))

@@ -4,13 +4,13 @@
   import { uid } from '../../libs/utils/uid'
   import type { TypeToast } from './types'
 
-  export function notify(message: string, type: TypeToast = 'unknown', closeManually = false) {
+  export function notify(message: string, type: TypeToast = 'unknown', options: SvelteToastOptions = {}) {
     const id = Number(uid())
     const close = () => toast.pop(id)
 
     toast.push({
+      ...options,
       id,
-      ...(closeManually ? { initial: 0 } : {}),
       component: {
         src: Item,
         props: { type, message, close },
@@ -18,20 +18,20 @@
     })
   }
 
-  export function successToast(message: string, closeManually = false) {
-    notify(message, 'success', closeManually)
+  export function successToast(message: string, options?: SvelteToastOptions) {
+    notify(message, 'success', options)
   }
 
-  export function errorToast(message: string, closeManually = false) {
-    notify(message, 'error', closeManually)
+  export function errorToast(message: string, options?: SvelteToastOptions) {
+    notify(message, 'error', options)
   }
 
-  export function warningToast(message: string, closeManually = false) {
-    notify(message, 'warning', closeManually)
+  export function warningToast(message: string, options?: SvelteToastOptions) {
+    notify(message, 'warning', options)
   }
 
-  export function infoToast(message: string, closeManually = false) {
-    notify(message, 'info', closeManually)
+  export function infoToast(message: string, options?: SvelteToastOptions) {
+    notify(message, 'info', options)
   }
 </script>
 
@@ -41,7 +41,7 @@
   import { notificationConfig } from '../../app.config'
 
   const options: SvelteToastOptions = {
-    duration: notificationConfig.duration,
+    duration: notificationConfig.duration.default,
     pausable: false,
   }
 </script>

@@ -2,8 +2,8 @@
   import FaExchangeAlt from 'svelte-icons/fa/FaExchangeAlt.svelte'
   import type { Token } from '../../libs/token/types'
 
-  export let tokenFrom: Token
-  export let tokenTo: Token
+  export let tokenFrom: Token | undefined
+  export let tokenTo: Token | undefined
 
   function switchTokens() {
     if (!tokenFrom || !tokenTo) return

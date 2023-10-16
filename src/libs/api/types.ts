@@ -6,6 +6,7 @@ export interface BaseArgs {
   sellAmount: string
   sellToken?: Address
   buyToken?: string
+  takerAddress?: Address
   slippagePercentage?: string
 }
 
