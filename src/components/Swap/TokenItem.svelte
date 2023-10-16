@@ -8,7 +8,7 @@
 
 <li>
   <button {disabled} class="btn btn-ghost" on:click={() => onSelect?.(value)}>
-    <div class="avatar h-6 md:h-8">
+    <div class="avatar w-5 md:w-6">
       {#if value.logoURI}
         <img src={value.logoURI} alt={value.name} />
       {:else}
